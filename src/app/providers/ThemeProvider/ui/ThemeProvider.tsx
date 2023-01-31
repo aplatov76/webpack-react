@@ -1,5 +1,5 @@
 import { FC, ReactNode, useMemo, useState } from "react";
-import { Theme, ThemeContext } from "./ThemeContext";
+import { Theme, ThemeContext } from "../lib/ThemeContext";
 
 const ThemeProvider = ({ children }: { children: ReactNode }): JSX.Element => {
   const [theme, setTheme] = useState<Theme>(Theme.LIGHT);

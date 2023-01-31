@@ -8,6 +8,9 @@
     "allowJs": true,
     "moduleResolution": "node",
     "baseUrl": ".",
+    "paths": {
+      "*": ["./src/*"]
+    },
     // позволяет работать с коммонд экспортс как с обычными модулями
     "esModuleInterop": true,
     //позволяет импортировать модули которые не экспортируется с default без * as
