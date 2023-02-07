@@ -1,5 +1,8 @@
-const MainPage = () => {
-  return <>Main</>;
-};
+import { useTranslation } from 'react-i18next'
 
-export default MainPage;
+const MainPage = () => {
+  const { t } = useTranslation('main')
+  return <>{t('title')}</>
+}
+
+export default MainPage

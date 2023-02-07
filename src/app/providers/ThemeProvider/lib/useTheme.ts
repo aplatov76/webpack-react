@@ -1,18 +1,17 @@
-import { useContext, useState } from "react";
-import { ThemeContext, Theme } from "./ThemeContext";
+import { useContext } from 'react'
+import { ThemeContext, Theme } from './ThemeContext'
 
-interface UseThemeResult {
-  toogleTheme: () => void;
-  theme: Theme;
+interface UseThemeResultProps {
+  toogleTheme: () => void
+  theme: Theme
 }
 
-export function useTheme(): UseThemeResult {
-  const { theme, setTheme } = useContext(ThemeContext);
+export function useTheme(): UseThemeResultProps {
+  const { theme, setTheme } = useContext(ThemeContext)
 
   const toogleTheme = () => {
-    console.log("x");
-    setTheme(theme === Theme.DARK ? Theme.LIGHT : Theme.DARK);
-  };
+    setTheme(theme === Theme.DARK ? Theme.LIGHT : Theme.DARK)
+  }
 
-  return { theme, toogleTheme };
+  return { theme, toogleTheme }
 }
