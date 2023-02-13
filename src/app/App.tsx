@@ -1,4 +1,4 @@
-import { Suspense } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useTheme } from 'app/providers/ThemeProvider'
 import { classNames } from 'shared/lib/classNames'
 import 'app/styles/index.sass'
@@ -12,12 +12,10 @@ export const App = () => {
   return (
     <div className={classNames('app', {}, [theme])}>
       <NavBar />
-      <Suspense fallback="Loading...">
-        <div className="content-page">
-          <SideBar />
-          <AppRouter />
-        </div>
-      </Suspense>
+      <div className="content-page">
+        <SideBar />
+        <AppRouter />
+      </div>
     </div>
   )
 }
