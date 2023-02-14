@@ -1,4 +1,3 @@
-import React from 'react'
 import { type ComponentStory, type ComponentMeta } from '@storybook/react'
 
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator'
@@ -13,7 +12,7 @@ export default {
   }
 } as ComponentMeta<typeof AboutPage>
 
-const Template: ComponentStory<typeof AboutPage> = (args) => <AboutPage {...args} />
+const Template: ComponentStory<typeof AboutPage> = (args: any = {}) => <AboutPage {...args} />
 
 export const Dark = Template.bind({})
 Dark.args = {}

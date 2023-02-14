@@ -22,7 +22,8 @@ export function buildLoaders(options: BuildOptions): webpack.RuleSetRule[] {
   const typescriptLoader = {
     test: /\.tsx?$/,
     use: 'ts-loader',
-    exclude: /node_modules/
+    //exclude: ['/node_modules/', '/src/**/*.stories.tsx']
+    exclude: ['/node_modules/']
   }
 
   return [typescriptLoader, cssLoaders, svgLoader, fileLoader]
