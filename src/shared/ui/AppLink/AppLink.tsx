@@ -9,6 +9,7 @@ export enum AppLinkTheme {
 }
 
 type AppLinkProps = {
+  to: string
   className?: string
   children: ReactNode
   theme?: AppLinkTheme

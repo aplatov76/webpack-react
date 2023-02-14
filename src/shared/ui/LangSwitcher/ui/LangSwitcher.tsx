@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-misused-promises */
 import { classNames } from 'shared/lib/classNames'
 import cls from './LangSwitcher.module.sass'
 
@@ -17,7 +18,6 @@ export const LangSwitcher = (props: LangSwitcherProps) => {
   const toggle = async (): Promise<void> => {
     i18n.changeLanguage(i18n.language === 'ru' ? 'en' : 'ru')
   }
-
   return (
     <div className={classNames(cls.LangSwitcher, {}, [className])}>
       <Button theme={ThemeButton.CLEAR} onClick={toggle}>
