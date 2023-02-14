@@ -8,6 +8,10 @@ on:
       - opened
     branches: [master]
 jobs:
+  plugin_ci:
+    permissions:
+      contents: write
+      pull_request: write
   pipeline:
     runs-on: ubuntu-latest
     strategy:
