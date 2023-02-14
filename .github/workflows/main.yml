@@ -11,18 +11,18 @@ jobs:
     strategy:
       matrix:
         node-version: [18.x]
+
     steps:
       - uses: actions/checkout@v2
       - name: Staring Node.js ${{ matrix.node-version}}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{matrix.node-version }}
       - name: install modules
-      run: yarn install
+        run: yarn install
       - name: build production project
-      run: yarn build:prod
+        run: yarn build:prod
       - name: linting typescript
-      run: yarn lint:ts
+        run: yarn lint:ts
       - name: unit testing
-      run: yarn unit
-
+        run: yarn unit
