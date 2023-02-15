@@ -10,7 +10,7 @@ interface ThemeSwitcherProps {
   children?: ReactNode
 }
 
-export const ThemeSwitcher = ({ className, children }: ThemeSwitcherProps) => {
+export const ThemeSwitcher = ({ className }: ThemeSwitcherProps) => {
   const { theme, toogleTheme } = useTheme()
 
   return (
