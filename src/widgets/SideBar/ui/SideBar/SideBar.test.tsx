@@ -1,15 +1,14 @@
-import { fireEvent, render, screen } from '@testing-library/react'
-import { withTranslation } from 'react-i18next'
-import { renderWithTranslation } from 'shared/lib/tests/renderWithTranslation/renderWithTranslation'
+import { fireEvent, screen } from '@testing-library/react'
+import { componentRender } from 'shared/config/test/componentRender/componentRender'
 import { SideBar } from './SideBar'
 
 describe('Sidebar ton tests', () => {
   test('with only first param', () => {
-    renderWithTranslation(<SideBar />)
+    componentRender(<SideBar />)
     expect(screen.getByTestId('sidebar')).toBeInTheDocument()
   })
   test('test toggle', () => {
-    renderWithTranslation(<SideBar />)
+    componentRender(<SideBar />)
     const toogleBtn = screen.getByTestId('sidebar-toggle')
     expect(screen.getByTestId('sidebar')).toBeInTheDocument()
     fireEvent.click(toogleBtn)

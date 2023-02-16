@@ -8,6 +8,7 @@ import { ThemeButton } from 'shared/ui/Button/ui/Button'
 
 interface LangSwitcherProps {
   className?: string
+  short?: boolean
 }
 
 export const LangSwitcher = (props: LangSwitcherProps) => {
