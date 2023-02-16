@@ -27,6 +27,11 @@ jobs:
         run: yarn install
       - name: build production project
         run: yarn build:prod
+      - name: build story book
+        run: yarn storybook:build
+      - name: screenshot testing
+        run: yarn test:ui:ci
+
   lint:
     runs-on: ubuntu-latest
     strategy:
