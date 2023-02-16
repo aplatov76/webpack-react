@@ -19,6 +19,7 @@ jobs:
         with:
           path: ~/.npm
           key: node-modules-${{ hashFiles('**/package-lock.json') }}
+      - name: Build project
         uses: actions/setup-node@v1
         with:
           node-version: ${{matrix.node-version }}
