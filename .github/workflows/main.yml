@@ -14,6 +14,11 @@ jobs:
         node-version: [18.x]
     steps:
       - uses: actions/checkout@v3
+      - name: Cache deps
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Build project
         uses: actions/setup-node@v1
         with:
@@ -30,6 +35,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Staring Node.js ${{ matrix.node-version}}
+      - name: Cache deps
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}      
         uses: actions/setup-node@v1
         with:
           node-version: ${{matrix.node-version }}
@@ -46,6 +56,11 @@ jobs:
         node-version: [18.x]
     steps:
       - uses: actions/checkout@v3
+      - name: Cache deps
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: node-modules-${{ hashFiles('**/package-lock.json') }}
       - name: Staring Node.js ${{ matrix.node-version}}
         uses: actions/setup-node@v1
         with:
