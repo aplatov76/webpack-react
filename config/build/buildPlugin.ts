@@ -18,11 +18,11 @@ export function buildPlugins(html: string, isDev: boolean): webpack.WebpackPlugi
     })
   ]
 
-  if (isDev) {
+  if (isDev || true) {
     plugins.push(new webpack.HotModuleReplacementPlugin())
     plugins.push(
       new BundleAnalyzerPlugin({
-        openAnalyzer: false
+        openAnalyzer: true
       })
     )
   }

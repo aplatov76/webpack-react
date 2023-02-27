@@ -1,0 +1,52 @@
+import { configureStore, ReducersMapObject } from '@reduxjs/toolkit'
+import { StateSchema } from './StateSchema'
+import { counterReducer } from 'features/Counter/index'
+import { userReducer } from 'entities/User'
+import { reducer } from 'features/AuthByUserName/model/slice/loginSlice'
+import { useDispatch } from 'react-redux'
+import axios from 'axios'
+import { Extra } from 'shared/config/api/types'
+import * as api from 'shared/config/api/api.config'
+import { createReducerManager } from './reducerManager'
+
+const rootReducers = {
+  counter: counterReducer,
+  //loginForm: reducer,
+  user: userReducer
+}
+
+export function createReduxStore(initialState?: StateSchema) {
+  const rootReducers: ReducersMapObject<StateSchema> = {
+    counter: counterReducer,
+    //loginForm: loginReducer,
+    user: userReducer
+  }
+
+  return configureStore<StateSchema>({
+    reducer: rootReducers,
+    devTools: _IS_DEV_,
+    preloadedState: initialState
+  })
+}
+
+export const store = configureStore({
+  reducer: rootReducers,
+  devTools: _IS_DEV_,
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      thunk: {
+        extraArgument: {
+          client: axios,
+          api
+        } as Extra
+      },
+      serializableCheck: false
+    })
+})
+
+const reducerManager = createReducerManager(rootReducers)
+
+store
+
+export type AppDispatch = typeof store.dispatch
+export const useAppDispatch: () => AppDispatch = useDispatch

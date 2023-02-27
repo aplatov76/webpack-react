@@ -4,6 +4,7 @@ import cls from './Button.module.sass'
 
 export enum ThemeButton {
   CLEAR = 'clear',
+  CLEAR_INVERTED = 'clearInverted',
   OUTLINE = 'outline',
   BACKGROUND = 'background',
   BACKGROUND_INVERTED = 'backgroundInverted'
@@ -21,15 +22,16 @@ type ButtonProps = {
   theme?: ThemeButton
   square?: boolean
   size?: ButtonSize
+  disabled?: boolean
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
 export const Button = (props: ButtonProps) => {
-  const { className = '', children, theme = ThemeButton.CLEAR, ...otherProps } = props
+  const { className = '', children, theme = ThemeButton.CLEAR, square, size, ...otherProps } = props
 
   const mods: Record<string, boolean> = {
     [cls[theme]]: true,
-    [cls.square]: props.square,
-    [cls[props?.size]]: true
+    [cls.Square]: square,
+    [cls[size]]: !!size
   }
 
   return (

@@ -1,8 +1,15 @@
-import { type ReactNode, useMemo, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Theme, ThemeContext } from '../lib/ThemeContext'
 
-const ThemeProvider = ({ children }: { children: ReactNode }): JSX.Element => {
-  const [theme, setTheme] = useState<Theme>(Theme.LIGHT)
+interface ThemeProviderProps {
+  initialTheme?: Theme
+}
+
+const ThemeProvider: React.FC<React.PropsWithChildren<ThemeProviderProps>> = ({
+  children,
+  initialTheme = Theme.LIGHT
+}): JSX.Element => {
+  const [theme, setTheme] = useState<Theme>(initialTheme)
 
   const defaultProps = useMemo(
     () => ({

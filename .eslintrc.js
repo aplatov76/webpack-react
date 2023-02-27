@@ -7,9 +7,10 @@ module.exports = {
   extends: ['plugin:react/recommended', 'standard-with-typescript', 'plugin:storybook/recommended'],
   overrides: [
     {
-      files: ['**/src/**/*.test.{ts, tsx}'],
+      files: ['**/src/**/*.{test,stories}.{ts, tsx}'],
       rules: {
-        'i18next/no-literal-string': 'off'
+        'i18next/no-literal-string': 'off',
+        'max-len': 'off'
       }
     }
   ],
@@ -19,7 +20,7 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     project: 'tsconfig.json'
   },
-  plugins: ['react'],
+  plugins: ['react', 'react-hooks'],
   ignorePatterns: ['**/config/*', '**/webpack.config.ts'],
   rules: {
     'max-len': [
@@ -46,6 +47,13 @@ module.exports = {
     '@typescript-eslint/strict-boolean-expressions': 'off',
     '@typescript-eslint/prefer-nullish-coalescing': 'off',
     '@typescript-eslint/space-before-function-paren': 'off',
-    '@typescript-eslint/consistent-type-assertions': 'off'
+    '@typescript-eslint/consistent-type-assertions': 'off',
+    '@typescript-eslint/no-confusing-void-expression': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+    'react/prop-types': 'off',
+    'eslint-disable react/display-name': 'off',
+    'eslint-disable no-unused-vars': 'off',
+    '@typescript-eslint/promise-function-async': 'off'
   }
 }
