@@ -7,11 +7,13 @@ import 'shared/config/i18n/i18n'
 import { ErrorBoundary } from 'app/providers/ErrorBoundary'
 import { Provider } from 'react-redux'
 import { store } from 'app/providers/StoreProvider/config/store'
+import { StoreProvider } from 'app/providers/StoreProvider'
 
 const container = document.getElementById('root') as Element
 const root = createRoot(container)
+// <Provider store={store}>
 root.render(
-  <Provider store={store}>
+  <StoreProvider>
     <BrowserRouter>
       <ErrorBoundary>
         <ThemeProvider>
@@ -19,5 +21,5 @@ root.render(
         </ThemeProvider>
       </ErrorBoundary>
     </BrowserRouter>
-  </Provider>
+  </StoreProvider>
 )

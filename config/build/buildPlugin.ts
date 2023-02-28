@@ -18,7 +18,7 @@ export function buildPlugins(html: string, isDev: boolean): webpack.WebpackPlugi
     })
   ]
 
-  if (isDev || true) {
+  if (isDev) {
     plugins.push(new webpack.HotModuleReplacementPlugin())
     plugins.push(
       new BundleAnalyzerPlugin({
