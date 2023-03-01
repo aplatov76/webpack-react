@@ -1,12 +1,12 @@
-import { Suspense, useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useTheme } from 'app/providers/ThemeProvider'
 import { classNames } from 'shared/lib/classNames'
 import 'app/styles/index.sass'
 import { AppRouter } from './providers/router'
 import { NavBar } from 'widgets/NavBar'
 import { SideBar } from 'widgets/SideBar'
-import { useAppDispatch } from './providers/StoreProvider/config/store'
 import { initAuthData } from 'entities/User'
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
 
 export const App = () => {
   const { theme } = useTheme()

@@ -1,5 +1,6 @@
+/* eslint-disable react/display-name */
 import { useTheme } from 'app/providers/ThemeProvider'
-import { type ReactNode } from 'react'
+import { memo, type ReactNode } from 'react'
 import { classNames } from 'shared/lib/classNames'
 import ThemeLightIcon from 'shared/assets/icons/theme-light.svg'
 import ThemeDarkIcon from 'shared/assets/icons/theme-dark.svg'
@@ -11,18 +12,16 @@ interface ThemeSwitcherProps {
   children?: ReactNode
 }
 
-export const ThemeSwitcher = ({ className, children }: ThemeSwitcherProps) => {
+export const ThemeSwitcher = memo(({ className, children }: ThemeSwitcherProps) => {
   const { theme, toogleTheme } = useTheme()
 
   return (
     <Button>
-      {theme === Theme.DARK
-        ? (
-          <ThemeLightIcon className={classNames(className)} onClick={toogleTheme} />
-          )
-        : (
-          <ThemeDarkIcon className={classNames(className)} onClick={toogleTheme} />
-          )}
+      {theme === Theme.DARK ? (
+        <ThemeLightIcon className={classNames(className)} onClick={toogleTheme} />
+      ) : (
+        <ThemeDarkIcon className={classNames(className)} onClick={toogleTheme} />
+      )}
     </Button>
   )
-}
+})

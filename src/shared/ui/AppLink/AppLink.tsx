@@ -1,4 +1,5 @@
-import { type ReactNode } from 'react'
+/* eslint-disable react/display-name */
+import { memo, type ReactNode } from 'react'
 import { type LinkProps, Link } from 'react-router-dom'
 import { classNames } from 'shared/lib/classNames'
 import cls from './AppLink.module.sass'
@@ -15,10 +16,10 @@ type AppLinkProps = {
   theme?: AppLinkTheme
 } & LinkProps
 
-export const AppLink = ({ className, children, to, theme = AppLinkTheme.PRIMARY }: AppLinkProps) => {
+export const AppLink = memo(({ className, children, to, theme = AppLinkTheme.PRIMARY }: AppLinkProps) => {
   return (
     <Link className={classNames(className, {}, [cls.AppLink, cls[theme]])} to={to}>
       {children}
     </Link>
   )
-}
+})

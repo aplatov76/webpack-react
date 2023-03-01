@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useMemo, useState } from 'react'
 import { RoutePath } from 'shared/config/routeConfig/routeConfig'
 import { classNames } from 'shared/lib/classNames'
 import { AppLink, Button, LangSwitcher, ThemeSwitcher } from 'shared/ui'
 import { ButtonSize, ThemeButton } from 'shared/ui/Button/ui/Button'
+import { SideBarItemsList } from './model/items'
 import cls from './SideBar.module.sass'
-import AboutIcon from 'shared/assets/icons/about-20-20.svg'
-import MainIcon from 'shared/assets/icons/main-20-20.svg'
+import { SideBarItem } from './SideBarItem/SideBarItem'
 
 interface SideBarProps {
   className?: string
@@ -17,6 +17,11 @@ export const SideBar = (props: SideBarProps) => {
   const onToggle = (): void => {
     setCollapsed((prev) => !prev)
   }
+
+  const itemsList = useMemo(
+    () => SideBarItemsList.map((item) => <SideBarItem collapsed={collapsed} key={item.path} item={item} />),
+    [collapsed]
+  )
 
   return (
     <div data-testid="sidebar" className={classNames(cls.SideBar, { [cls.collapsed]: collapsed })}>
@@ -30,20 +35,7 @@ export const SideBar = (props: SideBarProps) => {
       >
         {collapsed ? '>' : '<'}
       </Button>
-      <div className={cls.items}>
-        <div>
-          <AppLink className={cls.item} to={RoutePath.main}>
-            <MainIcon className={cls.icon} />
-            <span className={cls.link}>Главная</span>
-          </AppLink>
-        </div>
-        <div>
-          <AppLink className={cls.item} to={RoutePath.about}>
-            <AboutIcon className={cls.icon} />
-            <span className={cls.link}>About</span>
-          </AppLink>
-        </div>
-      </div>
+      <div className={cls.items}>{itemsList}</div>
       <div className={cls.switchers}>
         <ThemeSwitcher />
         <LangSwitcher className={cls.lang} />

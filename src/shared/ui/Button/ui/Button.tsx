@@ -1,4 +1,5 @@
-import { type ButtonHTMLAttributes, type ReactNode } from 'react'
+/* eslint-disable react/display-name */
+import { type ButtonHTMLAttributes, type ReactNode, memo } from 'react'
 import { classNames } from 'shared/lib/classNames'
 import cls from './Button.module.sass'
 
@@ -25,7 +26,7 @@ type ButtonProps = {
   disabled?: boolean
 } & ButtonHTMLAttributes<HTMLButtonElement>
 
-export const Button = (props: ButtonProps) => {
+export const Button = memo((props: ButtonProps) => {
   const { className = '', children, theme = ThemeButton.CLEAR, square, size, ...otherProps } = props
 
   const mods: Record<string, boolean> = {
@@ -39,4 +40,4 @@ export const Button = (props: ButtonProps) => {
       {children}
     </button>
   )
-}
+})

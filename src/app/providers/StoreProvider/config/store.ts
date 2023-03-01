@@ -36,6 +36,10 @@ export function createReduxStore(initialState?: StateSchema) {
   return store
 }
 
+// use it type for payload
+export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch']
+//export const useAppDispatch: () => AppDispatch = useDispatch
+
 export const store = configureStore({
   reducer: rootReducers,
   devTools: _IS_DEV_,
@@ -50,6 +54,3 @@ export const store = configureStore({
       serializableCheck: false
     })
 })
-
-export type AppDispatch = typeof store.dispatch
-export const useAppDispatch: () => AppDispatch = useDispatch
