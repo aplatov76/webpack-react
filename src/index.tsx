@@ -5,21 +5,21 @@ import { ThemeProvider } from './app/providers/ThemeProvider'
 
 import 'shared/config/i18n/i18n'
 import { ErrorBoundary } from 'app/providers/ErrorBoundary'
-import { Provider } from 'react-redux'
-import { store } from 'app/providers/StoreProvider/config/store'
+// import { Provider } from 'react-redux'
+// import { store } from 'app/providers/StoreProvider/config/store'
 import { StoreProvider } from 'app/providers/StoreProvider'
 
 const container = document.getElementById('root') as Element
 const root = createRoot(container)
 // <Provider store={store}>
 root.render(
-  <StoreProvider>
-    <BrowserRouter>
+  <BrowserRouter>
+    <StoreProvider>
       <ErrorBoundary>
         <ThemeProvider>
           <App />
         </ThemeProvider>
       </ErrorBoundary>
-    </BrowserRouter>
-  </StoreProvider>
+    </StoreProvider>
+  </BrowserRouter>
 )

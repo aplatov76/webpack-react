@@ -6,7 +6,7 @@ describe('getLoginState.test', () => {
   test('should return empty state', () => {
     const state: DeepPartial<StateSchema> = {
       loginForm: {
-        error: null,
+        error: undefined,
         username: '',
         password: '',
         isLoading: false

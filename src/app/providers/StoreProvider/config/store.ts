@@ -1,13 +1,11 @@
-import { configureStore, DeepPartial, ReducersMapObject } from '@reduxjs/toolkit'
+import { CombinedState, configureStore, DeepPartial, getDefaultMiddleware, ReducersMapObject } from '@reduxjs/toolkit'
 import { StateSchema } from './StateSchema'
 import { counterReducer } from 'features/Counter/index'
 import { userReducer } from 'entities/User'
-import { reducer } from 'features/AuthByUserName/model/slice/loginSlice'
-import { useDispatch } from 'react-redux'
-import axios from 'axios'
-import { Extra } from 'shared/config/api/types'
-import * as api from 'shared/config/api/api.config'
 import { createReducerManager } from './reducerManager'
+import { $api } from 'shared/api/api'
+import { NavigateOptions, To, useNavigate } from 'react-router-dom'
+import { Reducer } from 'react'
 
 const rootReducers = {
   counter: counterReducer,
@@ -15,19 +13,31 @@ const rootReducers = {
   user: userReducer
 }
 
-export function createReduxStore(initialState?: StateSchema) {
+export function createReduxStore(initialState?: StateSchema, navigate?: (to: To, options?: NavigateOptions) => void) {
   const rootReducers: ReducersMapObject<StateSchema> = {
     counter: counterReducer,
     //loginForm: loginReducer,
     user: userReducer
   }
 
+  //const navigate = useNavigate()
+
   const reducerManager = createReducerManager(rootReducers)
 
-  const store = configureStore<StateSchema>({
-    reducer: reducerManager.reduce,
+  const store = configureStore({
+    // @ts-ignore
+    reducer: reducerManager.reduce as Reducer<CombinedState<StateSchema>>,
     devTools: _IS_DEV_,
-    preloadedState: initialState
+    preloadedState: initialState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        thunk: {
+          extraArgument: {
+            api: $api,
+            navigate
+          }
+        }
+      })
   })
 
   // @ts-ignore
@@ -38,8 +48,8 @@ export function createReduxStore(initialState?: StateSchema) {
 
 // use it type for payload
 export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch']
-//export const useAppDispatch: () => AppDispatch = useDispatch
 
+/*
 export const store = configureStore({
   reducer: rootReducers,
   devTools: _IS_DEV_,
@@ -54,3 +64,4 @@ export const store = configureStore({
       serializableCheck: false
     })
 })
+*/

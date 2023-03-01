@@ -6,7 +6,7 @@ const initialState: LoginSchema = {
   isLoading: false,
   username: '',
   password: '',
-  error: null
+  error: undefined
 }
 
 export const loginSlice = createSlice({
@@ -30,7 +30,7 @@ export const loginSlice = createSlice({
         console.log(action.payload)
         state.isLoading = false
         state.username = action.payload.username
-        state.error = null
+        state.error = undefined
       })
       .addCase(loginByUsername.rejected, (state, action) => {
         console.log('rejected: ', action)

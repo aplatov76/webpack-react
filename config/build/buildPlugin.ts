@@ -3,7 +3,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import webpack from 'webpack'
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
-export function buildPlugins(html: string, isDev: boolean): webpack.WebpackPluginInstance[] {
+export function buildPlugins(html: string, isDev: boolean, apiUrl: string): webpack.WebpackPluginInstance[] {
   const plugins = [
     new webpack.ProgressPlugin(),
     new HtmlWebpackPlugin({
@@ -14,7 +14,8 @@ export function buildPlugins(html: string, isDev: boolean): webpack.WebpackPlugi
       chunkFilename: 'css/[name].[contenthash:8].css'
     }),
     new webpack.DefinePlugin({
-      _IS_DEV_: JSON.stringify(isDev)
+      _IS_DEV_: JSON.stringify(isDev),
+      _API_: JSON.stringify(apiUrl)
     })
   ]
 

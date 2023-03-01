@@ -1,4 +1,6 @@
-export const classNames = (cls: string = '', mods?: Record<string, boolean>, additional?: string[]): string => {
+export type ModsType = Record<string, boolean | undefined>
+
+export const classNames = (cls: string = '', mods?: ModsType, additional?: Array<string | undefined>): string => {
   return [
     cls,
     ...Object.entries(mods ?? {})

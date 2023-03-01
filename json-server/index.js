@@ -42,6 +42,12 @@ server.post('/login', (req, res) => {
   return res.status(403).json({ message: 'AUTH_ERROR' })
 })
 
+server.get('/profile', (req, res) => {
+  const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'))
+  const { profile } = db
+  return res.json(profile)
+})
+
 server.use((req, res, next) => {
   if (!req.headers.authorization) return res.status(403).json({ message: 'AUTH_ERROR' })
   next()

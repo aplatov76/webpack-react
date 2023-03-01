@@ -1,2 +1,5 @@
 export { type ProfileType, type ProfileSchema } from './model/types/profile'
 export { reducer as profileReducer, setProfileData, clearProfile } from './model/slice/profileSlice'
+export { fetchProfileData } from './model/services/fetchProfileData/fetchProfileData'
+export { getProfileData } from './model/selectors/getProfileSelector/getProfileSelector'
+export { ProfileCard } from './ui/ProfileCard/ProfileCard'

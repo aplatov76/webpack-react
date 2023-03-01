@@ -5,10 +5,11 @@ import { buildResolvers } from './buildResolvers'
 import { type BuildOptions } from './types/config'
 import { buildDevServer } from './buildDevServer'
 
-export function buildWebPackConfig (options: BuildOptions): webpack.Configuration {
+export function buildWebPackConfig(options: BuildOptions): webpack.Configuration {
   const {
     mode,
     isDev,
+    apiUrl,
     paths: { entry, html, build }
   } = options
   return {
@@ -19,7 +20,7 @@ export function buildWebPackConfig (options: BuildOptions): webpack.Configuratio
       path: build,
       clean: true
     },
-    plugins: buildPlugins(html, isDev),
+    plugins: buildPlugins(html, isDev, apiUrl),
     module: {
       rules: buildLoaders(options)
     },

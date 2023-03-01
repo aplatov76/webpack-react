@@ -1,6 +1,9 @@
+import { fetchProfileData, ProfileCard } from 'entities/Profile'
 import { reducer } from 'entities/Profile/model/slice/profileSlice'
+import { useEffect } from 'react'
 import { classNames } from 'shared/lib/classNames'
 import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
+import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
 import cls from './ProfilePage.module.sass'
 
 interface ProfilePageProps {
@@ -12,9 +15,16 @@ const reducers: ReducersList = {
 }
 
 const ProfilePage = ({ className }: ProfilePageProps) => {
+  const dispatch = useAppDispatch()
+  useEffect(() => {
+    dispatch(fetchProfileData())
+  }, [])
+
   return (
-    <DynamicModuleLoader reducers={reducers}>
-      <div className={classNames(cls.ProfilePage, {}, [className])}>ProfilePage</div>
+    <DynamicModuleLoader reducers={reducers} removeAfterUnmount>
+      <div className={classNames(cls.ProfilePage, {}, [className])}>
+        <ProfileCard />
+      </div>
     </DynamicModuleLoader>
   )
 }
