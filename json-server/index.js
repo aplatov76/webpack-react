@@ -6,10 +6,12 @@ const path = require('path')
 const server = jsonServer.create()
 const router = jsonServer.router(path.resolve(__dirname, 'db.json'))
 const middlewares = jsonServer.defaults()
+server.use(jsonServer.defaults({}))
+server.use(jsonServer.bodyParser)
 
 server.use(async (req, res, next) => {
   await new Promise((res) => {
-    setTimeout(res, 1800)
+    setTimeout(res, 1000)
   })
   next()
 })
@@ -43,6 +45,18 @@ server.post('/login', (req, res) => {
 })
 
 server.get('/profile', (req, res) => {
+  const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'))
+  const { profile } = db
+  return res.json(profile)
+})
+
+server.put('/profile', (req, res) => {
+  const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'))
+  const { profile } = db
+  return res.json(profile)
+})
+
+server.put('/articles/:id', (req, res) => {
   const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'))
   const { profile } = db
   return res.json(profile)

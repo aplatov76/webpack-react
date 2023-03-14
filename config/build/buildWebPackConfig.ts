@@ -10,7 +10,8 @@ export function buildWebPackConfig(options: BuildOptions): webpack.Configuration
     mode,
     isDev,
     apiUrl,
-    paths: { entry, html, build }
+    paths: { entry, html, build },
+    project
   } = options
   return {
     mode,
@@ -18,9 +19,10 @@ export function buildWebPackConfig(options: BuildOptions): webpack.Configuration
     output: {
       filename: '[name].[contenthash].js',
       path: build,
-      clean: true
+      clean: true,
+      publicPath: '/'
     },
-    plugins: buildPlugins(html, isDev, apiUrl),
+    plugins: buildPlugins(html, isDev, apiUrl, project),
     module: {
       rules: buildLoaders(options)
     },

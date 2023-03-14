@@ -5,12 +5,14 @@ import 'app/styles/index.sass'
 import { AppRouter } from './providers/router'
 import { NavBar } from 'widgets/NavBar'
 import { SideBar } from 'widgets/SideBar'
-import { initAuthData } from 'entities/User'
+import { getUserInited, initAuthData } from 'entities/User'
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
+import { useSelector } from 'react-redux'
 
 export const App = () => {
   const { theme } = useTheme()
   const dispatch = useAppDispatch()
+  const inited = useSelector(getUserInited)
 
   useEffect(() => {
     dispatch(initAuthData())
@@ -21,7 +23,7 @@ export const App = () => {
       <NavBar />
       <div className="content-page">
         <SideBar />
-        <AppRouter />
+        {inited && <AppRouter />}
       </div>
     </div>
   )

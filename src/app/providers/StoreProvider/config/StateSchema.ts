@@ -6,6 +6,7 @@ import { LoginSchema } from 'features/AuthByUserName'
 import { type CounterSchema } from 'features/Counter/index'
 import { Dispatch } from 'redux'
 import { NavigateOptions, To } from 'react-router-dom'
+import { ArticleDetailsSchema } from 'entities/Article'
 
 export interface StateSchema {
   counter: CounterSchema
@@ -14,6 +15,7 @@ export interface StateSchema {
   // Асинхронные редюсеры
   loginForm?: LoginSchema
   profile?: ProfileSchema
+  articleDetails?: ArticleDetailsSchema
 }
 
 export type StateSchemaKey = keyof StateSchema
@@ -38,4 +40,5 @@ export interface ThunkConfig<T> {
   rejectValue: T
   extra: ThunkExtraArg
   dispatch?: Dispatch
+  state: StateSchema
 }

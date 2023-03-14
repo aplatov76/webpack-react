@@ -1,3 +1,4 @@
+/* eslint-disable multiline-ternary */
 /* eslint-disable react/display-name */
 import { useTheme } from 'app/providers/ThemeProvider'
 import { memo, type ReactNode } from 'react'

@@ -1,7 +1,7 @@
-import { useMemo, useState } from 'react'
-import { RoutePath } from 'shared/config/routeConfig/routeConfig'
+/* eslint-disable react/display-name */
+import { useMemo, useState, memo } from 'react'
 import { classNames } from 'shared/lib/classNames'
-import { AppLink, Button, LangSwitcher, ThemeSwitcher } from 'shared/ui'
+import { Button, LangSwitcher, ThemeSwitcher } from 'shared/ui'
 import { ButtonSize, ThemeButton } from 'shared/ui/Button/ui/Button'
 import { SideBarItemsList } from './model/items'
 import cls from './SideBar.module.sass'
@@ -11,7 +11,7 @@ interface SideBarProps {
   className?: string
 }
 
-export const SideBar = (props: SideBarProps) => {
+export const SideBar = memo((props: SideBarProps) => {
   const [collapsed, setCollapsed] = useState(false)
 
   const onToggle = (): void => {
@@ -42,4 +42,4 @@ export const SideBar = (props: SideBarProps) => {
       </div>
     </div>
   )
-}
+})

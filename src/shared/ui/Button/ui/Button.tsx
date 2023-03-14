@@ -1,12 +1,13 @@
 /* eslint-disable react/display-name */
 import { type ButtonHTMLAttributes, type ReactNode, memo } from 'react'
-import { classNames, ModsType } from 'shared/lib/classNames'
+import { classNames, type ModsType } from 'shared/lib/classNames'
 import cls from './Button.module.sass'
 
 export enum ThemeButton {
   CLEAR = 'clear',
   CLEAR_INVERTED = 'clearInverted',
   OUTLINE = 'outline',
+  OUTLINE_RED = 'outline_red',
   BACKGROUND = 'background',
   BACKGROUND_INVERTED = 'backgroundInverted'
 }
@@ -28,7 +29,6 @@ type ButtonProps = {
 
 export const Button = memo((props: ButtonProps) => {
   const { className = '', children, theme = ThemeButton.CLEAR, square, size, ...otherProps } = props
-
   let mods: ModsType = {
     [cls[theme]]: true,
     [cls.Square]: square

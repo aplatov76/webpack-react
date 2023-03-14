@@ -4,7 +4,7 @@ interface SpinnerProps {
   className?: string
 }
 
-export const Spinner = (props: SpinnerProps) => {
+export const Spinner = () => {
   return (
     <div className="lds-default">
       <div></div>

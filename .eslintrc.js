@@ -54,6 +54,7 @@ module.exports = {
     'react/prop-types': 'off',
     'eslint-disable react/display-name': 'off',
     'eslint-disable no-unused-vars': 'off',
-    '@typescript-eslint/promise-function-async': 'off'
+    '@typescript-eslint/promise-function-async': 'off',
+    '@typescript-eslint/consistent-type-definitions': 'off'
   }
 }
