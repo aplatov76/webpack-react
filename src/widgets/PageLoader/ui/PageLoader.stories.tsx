@@ -2,7 +2,6 @@ import React from 'react'
 import { type ComponentStory, type ComponentMeta } from '@storybook/react'
 
 import { PageLoader } from './PageLoader'
-import { RouterDecorator } from 'shared/config/storybook/RouterDecorator/RouterDecorator'
 import { ThemeDecorator } from 'shared/config/storybook/ThemeDecorator/ThemeDecorator'
 import { Theme } from 'app/providers/ThemeProvider/lib/ThemeContext'
 

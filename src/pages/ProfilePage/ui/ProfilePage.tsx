@@ -1,14 +1,25 @@
-import { fetchProfileData, getProfileReadonly, getProfileValidateErrors, ProfileCard } from 'entities/Profile'
-import { cancelEdit, reducer } from 'entities/Profile/model/slice/profileSlice'
+import { reducer } from 'entities/Profile/model/slice/profileSlice'
 import { useCallback, useEffect } from 'react'
 import { classNames } from 'shared/lib/classNames'
 import { useSelector } from 'react-redux'
-import { updateProfile } from 'entities/Profile/'
-import { getProfileForm, getProfileError, getProfileIsLoading, type ProfileType } from 'entities/Profile'
+import {
+  getProfileForm,
+  getProfileError,
+  getProfileIsLoading,
+  updateProfile,
+  fetchProfileData,
+  getProfileReadonly,
+  getProfileValidateErrors,
+  ProfileCard
+} from 'entities/Profile'
 import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
 import cls from './ProfilePage.module.sass'
 import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader'
+import { getUserAuthData } from 'entities/User/model/selectors/getUserAuthData/getUserAuthData'
+import { useInitialEffects } from 'shared/lib/hooks/useInitialEffects/useInitialEffects'
+import { useParams } from 'react-router-dom'
+import { Page } from 'shared/ui/Page/Page'
 
 interface ProfilePageProps {
   className?: string
@@ -25,9 +36,11 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
   const error = useSelector(getProfileError)
   const isLoading = useSelector(getProfileIsLoading)
   const readonly = useSelector(getProfileReadonly)
-  useEffect(() => {
-    dispatch(fetchProfileData())
-  }, [])
+  const { id } = useParams<{ id: string }>()
+
+  useInitialEffects(() => {
+    if (id) dispatch(fetchProfileData(String(id)))
+  })
 
   const onChangeFirstname = useCallback(
     (value?: string) => {
@@ -58,20 +71,22 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
 
   return (
     <DynamicModuleLoader reducers={reducers}>
-      <div className={classNames(cls.ProfilePage, {}, [className])}>
-        <ProfilePageHeader />
-        {formErrors?.length && formErrors.map((error) => <p key={error}> {error} </p>)}
-        <ProfileCard
-          onChangeLastname={onChangeLastname}
-          onChangeFirstname={onChangeFirstname}
-          onChangeAge={onChangeAge}
-          onChangeCity={onChangeCity}
-          data={formData}
-          readonly={readonly}
-          error={error}
-          isLoading={isLoading}
-        />
-      </div>
+      <Page>
+        <div className={classNames(cls.ProfilePage, {}, [className])}>
+          <ProfilePageHeader />
+          {formErrors?.length && formErrors.map((error) => <p key={error}> {error} </p>)}
+          <ProfileCard
+            onChangeLastname={onChangeLastname}
+            onChangeFirstname={onChangeFirstname}
+            onChangeAge={onChangeAge}
+            onChangeCity={onChangeCity}
+            data={formData}
+            readonly={readonly}
+            error={error}
+            isLoading={isLoading}
+          />
+        </div>
+      </Page>
     </DynamicModuleLoader>
   )
 }

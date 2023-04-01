@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 /* eslint-disable @typescript-eslint/promise-function-async */
 import { createAsyncThunk } from '@reduxjs/toolkit'
@@ -17,7 +18,7 @@ export const updateProfileData = createAsyncThunk<ProfileType, void, ThunkConfig
     }
 
     try {
-      const response = await extra.api.put<ProfileType>('/profile', formData)
+      const response = await extra.api.put<ProfileType>('/profile/' + formData?.id ?? '', formData)
       if (!response.data) {
         throw new Error()
       }

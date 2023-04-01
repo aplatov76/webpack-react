@@ -9,7 +9,7 @@ import { type RouteProps } from 'react-router-dom'
 export enum AppRoutes {
   MAIN = 'main',
   ABOUT = 'about',
-  PROFILE = 'profile',
+  PROFILE = 'profile', // + id
   ARTICLES = 'articles',
   ARTICLE_DETAILS = 'article-page',
   //last page
@@ -23,7 +23,7 @@ export type AppRoutesProps = RouteProps & {
 export const RoutePath: Record<AppRoutes, string> = {
   [AppRoutes.MAIN]: '/',
   [AppRoutes.ABOUT]: '/about',
-  [AppRoutes.PROFILE]: '/profile',
+  [AppRoutes.PROFILE]: '/profile/',
   [AppRoutes.ARTICLES]: '/articles',
   [AppRoutes.ARTICLE_DETAILS]: '/articles/', // + id
   // последний
@@ -40,19 +40,17 @@ export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
     element: <AboutPage />
   },
   [AppRoutes.PROFILE]: {
-    path: RoutePath[AppRoutes.PROFILE],
+    path: `${RoutePath[AppRoutes.PROFILE]}:id`,
     element: <ProfilePageAsync />,
     authOnly: true
   },
   [AppRoutes.ARTICLES]: {
     path: RoutePath[AppRoutes.ARTICLES],
-    element: <ArticlePage />,
-    authOnly: true
+    element: <ArticlePage />
   },
   [AppRoutes.ARTICLE_DETAILS]: {
     path: `${RoutePath['article-page']}:id`,
-    element: <ArticleDetailsPage />,
-    authOnly: true
+    element: <ArticleDetailsPage />
   },
   [AppRoutes.NOT_FOUND]: {
     path: RoutePath[AppRoutes.NOT_FOUND],

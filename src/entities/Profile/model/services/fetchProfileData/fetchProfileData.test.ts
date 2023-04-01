@@ -20,7 +20,7 @@ describe('fetchProfileData.test', () => {
     const thunk = new TestAsyncThunk(fetchProfileData)
 
     thunk.api.get.mockReturnValue(Promise.resolve({ data: formData }))
-    const thunkResult = await thunk.callThunk()
+    const thunkResult = await thunk.callThunk('1')
 
     expect(thunk.api.get).toHaveBeenCalled()
     expect(thunkResult.meta.requestStatus).toBe('fulfilled')
@@ -30,7 +30,7 @@ describe('fetchProfileData.test', () => {
   test('should call action error', async () => {
     const thunk = new TestAsyncThunk(fetchProfileData)
     thunk.api.get.mockReturnValue(Promise.resolve({ status: 403 }))
-    const thunkResult = await thunk.callThunk()
+    const thunkResult = await thunk.callThunk('1')
 
     // expect(thunk.dispatch).toHaveBeenCalledTimes(2)
 

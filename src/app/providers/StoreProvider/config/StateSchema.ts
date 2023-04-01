@@ -7,6 +7,9 @@ import { type CounterSchema } from 'features/Counter/index'
 import { Dispatch } from 'redux'
 import { NavigateOptions, To } from 'react-router-dom'
 import { ArticleDetailsSchema } from 'entities/Article'
+import { ArticleDetailsCommentSchema } from 'pages/ArticleDetailsPage'
+import { AddCommentFormSchema } from 'features/AddCommentForm'
+import { ArticlePageSchema } from 'pages/ArticlePage'
 
 export interface StateSchema {
   counter: CounterSchema
@@ -16,6 +19,9 @@ export interface StateSchema {
   loginForm?: LoginSchema
   profile?: ProfileSchema
   articleDetails?: ArticleDetailsSchema
+  articleDetailsComments?: ArticleDetailsCommentSchema
+  addCommentForm?: AddCommentFormSchema
+  articlesPage?: ArticlePageSchema
 }
 
 export type StateSchemaKey = keyof StateSchema

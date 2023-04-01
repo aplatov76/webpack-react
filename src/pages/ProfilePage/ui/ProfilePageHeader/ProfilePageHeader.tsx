@@ -1,6 +1,8 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable multiline-ternary */
-import { getProfileReadonly, setReadonly, updateProfileData } from 'entities/Profile'
+import { getProfileData, getProfileReadonly, setReadonly, updateProfileData } from 'entities/Profile'
 import { cancelEdit } from 'entities/Profile/model/slice/profileSlice'
+import { getUserAuthData } from 'entities/User/model/selectors/getUserAuthData/getUserAuthData'
 import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
@@ -9,15 +11,14 @@ import { ThemeButton } from 'shared/ui/Button/ui/Button'
 import { Text } from 'shared/ui/Text'
 import cls from './ProfilePageHeader.module.sass'
 
-interface ProfilePageHeaderProps {
-  className?: string
-}
-
-export const ProfilePageHeader = ({ className }: ProfilePageHeaderProps) => {
+export const ProfilePageHeader = () => {
   const readonly = useSelector(getProfileReadonly)
 
   const dispatch = useAppDispatch()
 
+  const authData = useSelector(getUserAuthData)
+  const profileData = useSelector(getProfileData)
+  const canEdit = authData?.id == profileData?.id
   const onEdit = useCallback(() => {
     dispatch(setReadonly(false))
   }, [dispatch])
@@ -27,24 +28,29 @@ export const ProfilePageHeader = ({ className }: ProfilePageHeaderProps) => {
   }, [dispatch])
 
   const onSave = useCallback(() => {
-    dispatch(updateProfileData())
+    if (authData?.id) dispatch(updateProfileData())
   }, [dispatch])
 
   return (
     <div className={cls.header}>
       <Text title={'Профиль'} />
-      {readonly ? (
-        <Button className={cls.editBtn} onClick={onEdit}>
-          Редактировать
-        </Button>
-      ) : (
+      {canEdit && (
         <div>
-          <Button className={cls.editBtn} theme={ThemeButton.OUTLINE} onClick={onCancelEdit}>
-            Отменить
-          </Button>
-          <Button className={cls.editBtn} theme={ThemeButton.OUTLINE_RED} onClick={onSave}>
-            Сохранить
-          </Button>
+          {' '}
+          {readonly ? (
+            <Button className={cls.editBtn} onClick={onEdit}>
+              Редактировать
+            </Button>
+          ) : (
+            <div>
+              <Button className={cls.editBtn} theme={ThemeButton.OUTLINE} onClick={onCancelEdit}>
+                Отменить
+              </Button>
+              <Button className={cls.editBtn} theme={ThemeButton.OUTLINE_RED} onClick={onSave}>
+                Сохранить
+              </Button>
+            </div>
+          )}
         </div>
       )}
     </div>

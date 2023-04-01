@@ -1,18 +1,27 @@
 /* eslint-disable react/display-name */
+import { type Article } from 'entities/Article'
 import {
   getArticleDetailData,
   getArticleDetailError,
   getArticleDetailIsLoading
 } from 'entities/Article/model/selectors/getArticle.selector'
 import { fetchArticleById } from 'entities/Article/model/services/fetchArticleById/fetchArticleById'
-import { useEffect, memo } from 'react'
+import { useEffect, memo, useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import { classNames } from 'shared/lib/classNames'
 import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
 import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
-import { Skeleton } from 'shared/ui/'
+import { Icon, Skeleton } from 'shared/ui/'
+import { Avatar } from 'shared/ui/Avatar/Avatar'
+import { Text } from 'shared/ui/Text'
 import { reducer as articleDetailsReducer } from '../../model/slice/articleDetailsSlice'
+import EyeIcon from 'shared/assets/icons/eye-20-20.svg'
+import CalendarIcon from 'shared/assets/icons/calendar-20-20.svg'
 import cls from './ArticleDetails.module.sass'
+import { type ArticleBlock } from '../../model/types/article'
+import { ArticleCodeBlockComponent } from '../ArticleCodeBlockComponent/ArticleCodeBlockComponent'
+import { ArticleImageBlockComponent } from '../ArticleImageBlockComponent/ArticleImageBlockComponent'
+import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent'
 
 interface ArticleDetailsProps {
   classname?: string
@@ -34,6 +43,22 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
     dispatch(fetchArticleById(props.id ?? '1'))
   }, [])
 
+  const renderBlock = useCallback((block: ArticleBlock) => {
+    switch (block.type) {
+      case 'CODE': {
+        return <ArticleCodeBlockComponent key={block.id} block={block} />
+      }
+      case 'TEXT': {
+        return <ArticleTextBlockComponent key={block.id} block={block} />
+      }
+      case 'IMAGE': {
+        return <ArticleImageBlockComponent key={block.id} block={block} />
+      }
+      default:
+        return null
+    }
+  }, [])
+
   if (isLoading) {
     return (
       <div className={classNames(cls.ArticleDetails)}>
@@ -53,8 +78,17 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
     <DynamicModuleLoader reducers={reducers}>
       <div className={classNames(cls.ArticleDetails)}>
         <>
-          Article details:
-          {article && <span>{article.title}</span>}
+          <Avatar size={200} src={article?.img} />
+          <Text title={article?.title} text={article?.subtitle} />
+          <div className={cls.flex}>
+            <Icon Svg={EyeIcon} />
+            <Text text={String(article?.views)} />
+          </div>
+          <div className={cls.flex}>
+            <Icon Svg={CalendarIcon} />
+            <Text text={String(article?.createdAt)} />
+          </div>
+          {article?.blocks.map(renderBlock)}
         </>
       </div>
     </DynamicModuleLoader>

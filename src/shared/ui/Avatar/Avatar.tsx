@@ -4,7 +4,7 @@ import cls from './Avatar.module.sass'
 
 interface AvatarPropsInterface {
   classname?: string
-  src: string
+  src?: string
   size?: number
 }
 

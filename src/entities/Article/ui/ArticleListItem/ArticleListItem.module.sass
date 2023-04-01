@@ -1,0 +1,64 @@
+.ArticleListItem
+    display: flex
+.BIG
+    .views
+        margin-left: auto
+    .title
+        margin-top: 8px
+    .img
+        width: 100%
+        max-height: 250px
+        object-fit: cover
+        margin: 16
+    .date
+        margin-left: auto
+    .footer
+        display: flex
+        align-items: center
+        justify-content: space-between
+    .header
+        display: flex
+        align-items: center
+    .username
+        margin-left: 8px
+    .textBlock
+        max-height: 250px
+        overflow-y: hidden
+.SMALL
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    width: 230px
+    transition: 0.5s
+    cursor: pointer
+    &:hover
+        opacity: 0.8
+        .date
+            display: flex
+        transform: scale(1.01)
+    .imageWrapper
+        width: 200px
+        height: 200px
+        position: relative
+    .infoWrapper
+        display: flex
+        align-items: center
+    .views
+        margin-left: auto
+        margin-right: 8px
+    .title
+        margin-top: 10px
+    .img
+        width: 200px
+        height: 200px
+    .date
+        display: none
+        position: absolute
+        top: 10px
+        right: 10px
+    .type
+        width: 130px
+        white-space: nowrap
+        overflow: hidden
+        text-overflow: ellipsis

@@ -14,10 +14,10 @@ const AppRouter = () => {
         element={
           route.authOnly ? (
             <RequireAuth>
-              <div className="page-wrapper">{route.element}</div>
+              <>{route.element}</>
             </RequireAuth>
           ) : (
-            <div className="page-wrapper">{route.element}</div>
+            <>{route.element}</>
           )
         }
       />

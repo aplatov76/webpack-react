@@ -6,6 +6,7 @@ import { getProfileData } from './getProfileSelector'
 describe('getProfileSeloector.test', () => {
   test('should return empty state', () => {
     const data = {
+      id: '1',
       age: 22,
       country: Country.Ukraina,
       lastname: 'lastname',

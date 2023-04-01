@@ -48,20 +48,3 @@ export function createReduxStore(initialState?: StateSchema, navigate?: (to: To,
 
 // use it type for payload
 export type AppDispatch = ReturnType<typeof createReduxStore>['dispatch']
-
-/*
-export const store = configureStore({
-  reducer: rootReducers,
-  devTools: _IS_DEV_,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      thunk: {
-        extraArgument: {
-          client: axios,
-          api
-        } as Extra
-      },
-      serializableCheck: false
-    })
-})
-*/

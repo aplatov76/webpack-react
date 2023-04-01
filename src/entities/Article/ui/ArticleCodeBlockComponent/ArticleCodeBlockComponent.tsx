@@ -1,11 +1,15 @@
+import { type ArticleCodeBlock } from '../../model/types/article'
+import { memo } from 'react'
 import { classNames } from 'shared/lib/classNames'
-import cls from './ArticleCodeBlockComponentProps.module.sass'
+import cls from './ArticleCodeBlockComponent.module.sass'
+import { Code } from 'shared/ui/Code/Code'
 
 interface ArticleCodeBlockComponentProps {
   classname?: string
+  block: ArticleCodeBlock
 }
 
-export const ArticleCodeBlockComponent = (props: ArticleCodeBlockComponentProps) => {
-  const { classname } = props
-  return <div className={classNames(cls.classname)}>ArticleCodeBlockComponent</div>
-}
+export const ArticleCodeBlockComponent = memo((props: ArticleCodeBlockComponentProps) => {
+  const { classname, block } = props
+  return <Code>{block.code}</Code>
+})

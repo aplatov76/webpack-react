@@ -1,13 +1,8 @@
-import { Counter } from 'features/Counter'
 import { useTranslation } from 'react-i18next'
+import { Page } from 'shared/ui/Page/Page'
 
 const AboutPage = () => {
   const { t } = useTranslation('about')
-  return (
-    <div>
-      {t('О сайте')}
-      <Counter />
-    </div>
-  )
+  return <Page>{t('О сайте')}</Page>
 }
 export default AboutPage

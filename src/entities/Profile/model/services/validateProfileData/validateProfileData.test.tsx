@@ -3,6 +3,7 @@ import { ValidateProfileError } from '../../types/profile'
 import { validateProfileData } from './validateProfileData'
 
 const formData = {
+  id: '1',
   age: 22,
   country: Country.Ukraina,
   lastname: 'lastname',

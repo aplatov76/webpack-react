@@ -1,9 +1,11 @@
 /* eslint-disable react/display-name */
 import { useMemo, useState, memo } from 'react'
+import { useSelector } from 'react-redux'
 import { classNames } from 'shared/lib/classNames'
 import { Button, LangSwitcher, ThemeSwitcher } from 'shared/ui'
 import { ButtonSize, ThemeButton } from 'shared/ui/Button/ui/Button'
-import { SideBarItemsList } from './model/items'
+import { getSidebarItems } from './model/selectors/getSidebarItems'
+// import { SideBarItemsList } from './model/items'
 import cls from './SideBar.module.sass'
 import { SideBarItem } from './SideBarItem/SideBarItem'
 
@@ -13,18 +15,19 @@ interface SideBarProps {
 
 export const SideBar = memo((props: SideBarProps) => {
   const [collapsed, setCollapsed] = useState(false)
-
+  const SideBarItemsList = useSelector(getSidebarItems)
   const onToggle = (): void => {
     setCollapsed((prev) => !prev)
   }
 
+  console.log('SideBarItemsList: ', SideBarItemsList)
   const itemsList = useMemo(
     () => SideBarItemsList.map((item) => <SideBarItem collapsed={collapsed} key={item.path} item={item} />),
-    [collapsed]
+    [collapsed, SideBarItemsList]
   )
 
   return (
-    <div data-testid="sidebar" className={classNames(cls.SideBar, { [cls.collapsed]: collapsed })}>
+    <menu data-testid="sidebar" className={classNames(cls.SideBar, { [cls.collapsed]: collapsed })}>
       <Button
         data-testid="sidebar-toggle"
         className={cls.collapseBtn}
@@ -40,6 +43,6 @@ export const SideBar = memo((props: SideBarProps) => {
         <ThemeSwitcher />
         <LangSwitcher className={cls.lang} />
       </div>
-    </div>
+    </menu>
   )
 })

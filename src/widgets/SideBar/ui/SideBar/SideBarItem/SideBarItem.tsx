@@ -2,7 +2,7 @@
 import cls from './SideBarItem.module.sass'
 import { classNames } from 'shared/lib/classNames'
 import { AppLink } from 'shared/ui'
-import { type SideBarItemType } from '../model/items'
+import { type SideBarItemType } from '../model/types/sidebar'
 import { memo } from 'react'
 
 interface SideBarItemProps {
@@ -12,7 +12,6 @@ interface SideBarItemProps {
 }
 
 export const SideBarItem = memo(({ item, collapsed }: SideBarItemProps) => {
-  console.log('sidebar rerender: ')
   return (
     <div className={classNames(cls.SideBarItem, { [cls.collapsed]: collapsed }, [])}>
       <AppLink className={cls.item} to={item.path}>

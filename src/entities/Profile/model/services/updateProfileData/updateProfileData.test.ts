@@ -8,6 +8,7 @@ import { updateProfileData } from './updateProfileData'
 
 // const mockedAxios = jest.mocked(axios)
 const formData = {
+  id: '1',
   age: 22,
   country: Country.Ukraina,
   lastname: 'lastname',

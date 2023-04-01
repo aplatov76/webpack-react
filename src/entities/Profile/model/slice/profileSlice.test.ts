@@ -4,6 +4,7 @@ import { type ProfileSchema } from '../types/profile'
 import { reducer as profileReducer, setProfileData, setReadonly } from './profileSlice'
 
 const formData = {
+  id: '1',
   age: 22,
   country: Country.Ukraina,
   lastname: 'lastname',
@@ -15,7 +16,7 @@ const formData = {
 describe('profileSlice tests', () => {
   test('test action setProfileData', () => {
     const state: DeepPartial<ProfileSchema> = {
-      data: {},
+      data: { id: '1' },
       isLoading: false,
       readonly: false
     }
