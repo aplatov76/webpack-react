@@ -1,4 +1,4 @@
-import { type Country, type Currency } from 'entities/Currency/index'
+import { type Country, type Currency } from '@/entities/Currency/index'
 
 export enum ValidateProfileError {
   INCORRECT_USER_DATA = 'INCORRECT_USER_DATA',

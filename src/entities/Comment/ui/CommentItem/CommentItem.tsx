@@ -1,10 +1,10 @@
 import { memo } from 'react'
 import { type Comment } from '../../model/types/comment'
 import cls from './CommentItem.module.sass'
-import { classNames } from 'shared/lib/classNames'
-import { Avatar } from 'shared/ui/Avatar/Avatar'
-import { AppLink, Skeleton } from 'shared/ui'
-import { RoutePath } from 'shared/config/routeConfig/routeConfig'
+import { classNames } from '@/shared/lib/classNames'
+import { Avatar } from '@/shared/ui/Avatar'
+import { AppLink, Skeleton } from '@/shared/ui'
+import { RoutePath } from '@/app/providers/router/config/routeConfig'
 
 interface CommentItemProps {
   classname?: string

@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react'
 
-type UseHoverResult = [boolean, { onMouseEnter: () => void; onMouseLeave: () => void }]
+type UseHoverResult = [boolean, { onMouseEnter: () => void, onMouseLeave: () => void }]
 
 export const useHover = (): UseHoverResult => {
   const [isHover, setIsHover] = useState(false)

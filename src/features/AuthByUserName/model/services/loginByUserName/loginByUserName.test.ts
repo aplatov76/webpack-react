@@ -1,5 +1,5 @@
-import { setAuthData } from 'entities/User'
-import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/TestAsyncThunk'
+import { setAuthData } from '@/entities/User'
+import { TestAsyncThunk } from '@/shared/lib/tests/TestAsyncThunk/TestAsyncThunk'
 
 import { loginByUsername } from './loginByUserName'
 

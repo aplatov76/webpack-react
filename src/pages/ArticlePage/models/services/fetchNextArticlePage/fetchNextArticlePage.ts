@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable @typescript-eslint/promise-function-async */
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { type ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema'
+import { type ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema'
 import {
   getArticlePageHasMore,
   getArticlePageIsLoading,
@@ -21,11 +21,7 @@ export const fetchNextArticlePage = createAsyncThunk<void, void, ThunkConfig<str
 
     if (hasMore && !isLoading) {
       dispatch(actions.setPage(page + 1))
-      dispatch(
-        fetchArticlesList({
-          page: page + 1
-        })
-      )
+      dispatch(fetchArticlesList({}))
     }
   }
 )

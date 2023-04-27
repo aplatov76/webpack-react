@@ -1,7 +1,6 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { VIEW_LOCALSTORAGE_KEY } from 'shared/const/localStorage'
 import { fetchArticleById } from '../services/fetchArticleById/fetchArticleById'
-import { ArticleView, type Article } from '../types/article'
+import { type Article } from '../types/article'
 import { type ArticleDetailsSchema } from '../types/articleDetailsSchema'
 
 const initialState: ArticleDetailsSchema = {

@@ -1,9 +1,7 @@
 /* eslint-disable react/display-name */
-import { Currency } from 'entities/Currency'
-import React, { memo, useMemo } from 'react'
-import { classNames } from 'shared/lib/classNames'
-import { Select } from 'shared/ui/Select/Select'
-import cls from './CurrencySelect.module.sass'
+import { Currency } from '@/entities/Currency'
+import { MyListbox } from '@/shared/ui/Popups'
+import { memo } from 'react'
 
 interface CurrecncySelectProps {
   classname?: string
@@ -26,13 +24,12 @@ export const CurrencySelect = memo((props: CurrecncySelectProps) => {
   }
 
   return (
-    <Select
-      classname={classNames(cls.CurrentSelect, {}, [classname])}
-      label="Укажите валюту"
-      value={value}
+    <MyListbox
+      defaultValue={'Укажите валюту'}
       onChange={onChangeHandler}
-      options={options}
-      readonly={readonly}
+      value={value}
+      items={options}
+      direction={'top left'}
     />
   )
 })

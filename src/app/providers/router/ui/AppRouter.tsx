@@ -1,8 +1,8 @@
 /* eslint-disable multiline-ternary */
 import { Routes, Route } from 'react-router-dom'
-import { routeConfig, type AppRoutesProps } from 'shared/config/routeConfig/routeConfig'
+import { routeConfig, type AppRoutesProps } from '@/app/providers/router/config/routeConfig'
 import { Suspense, useMemo, memo, useCallback } from 'react'
-import { PageLoader } from 'widgets/PageLoader'
+import { PageLoader } from '@/widgets/PageLoader'
 import { RequireAuth } from './RequireAuth'
 
 const AppRouter = () => {

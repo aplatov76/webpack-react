@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
-import { Theme, ThemeContext } from '../lib/ThemeContext'
+import { ThemeContext } from '../../../../shared/lib/context/ThemeContext'
+import { Theme } from '@/shared/const/theme'
 
 interface ThemeProviderProps {
   initialTheme?: Theme

@@ -1,5 +1,5 @@
 import { type DeepPartial } from '@reduxjs/toolkit'
-import { type StateSchema } from 'app/providers/StoreProvider/config/StateSchema'
+import { type StateSchema } from '@/app/providers/StoreProvider/config/StateSchema'
 import { type Article } from '../types/article'
 import { getArticleDetailData } from './getArticle.selector'
 

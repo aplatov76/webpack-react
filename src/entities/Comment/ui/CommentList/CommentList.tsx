@@ -1,10 +1,9 @@
 /* eslint-disable no-constant-condition */
 /* eslint-disable multiline-ternary */
-import { classNames } from 'shared/lib/classNames'
-import { Text } from 'shared/ui/Text'
+import { VStack } from '@/shared/ui/Stack'
+import { Text } from '@/shared/ui/Text'
 import { type Comment } from '../../model/types/comment'
 import { CommentItem } from '../CommentItem/CommentItem'
-import cls from './CommentList.module.sass'
 
 interface CommentListProps {
   classname?: string
@@ -15,7 +14,7 @@ interface CommentListProps {
 export const CommentList = ({ classname, comments, isLoading }: CommentListProps) => {
   if (isLoading) {
     return (
-      <div className={classNames(cls.CommentList, {}, [classname])}>
+      <div>
         <CommentItem isLoading />
         <CommentItem isLoading />
         <CommentItem isLoading />
@@ -24,12 +23,12 @@ export const CommentList = ({ classname, comments, isLoading }: CommentListProps
   }
 
   return (
-    <div className={classNames(cls.CommentList, {}, [classname])}>
+    <VStack gap={'8'}>
       {comments?.length ? (
         comments.map((comment) => <CommentItem key={comment.id} isLoading={isLoading} comment={comment} />)
       ) : (
         <Text text="Комментарии отсутствуют" />
       )}
-    </div>
+    </VStack>
   )
 }

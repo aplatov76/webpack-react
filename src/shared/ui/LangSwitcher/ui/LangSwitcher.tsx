@@ -1,11 +1,10 @@
 /* eslint-disable react/display-name */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { classNames } from 'shared/lib/classNames'
+import { classNames } from '@/shared/lib/classNames'
 import cls from './LangSwitcher.module.sass'
 
 import { useTranslation } from 'react-i18next'
-import { Button } from 'shared/ui'
-import { ThemeButton } from 'shared/ui/Button/ui/Button'
+import { Button, ThemeButton } from '@/shared/ui/Button'
 import { memo } from 'react'
 
 interface LangSwitcherProps {

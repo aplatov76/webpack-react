@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import cls from './SideBarItem.module.sass'
-import { classNames } from 'shared/lib/classNames'
-import { AppLink } from 'shared/ui'
+import { classNames } from '@/shared/lib/classNames'
+import { AppLink } from '@/shared/ui/AppLink'
 import { type SideBarItemType } from '../model/types/sidebar'
 import { memo } from 'react'
 

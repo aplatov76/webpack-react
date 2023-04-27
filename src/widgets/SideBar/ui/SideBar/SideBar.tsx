@@ -1,13 +1,14 @@
 /* eslint-disable react/display-name */
 import { useMemo, useState, memo } from 'react'
 import { useSelector } from 'react-redux'
-import { classNames } from 'shared/lib/classNames'
-import { Button, LangSwitcher, ThemeSwitcher } from 'shared/ui'
-import { ButtonSize, ThemeButton } from 'shared/ui/Button/ui/Button'
+import { classNames } from '@/shared/lib/classNames'
+import { Button, LangSwitcher, ThemeSwitcher } from '@/shared/ui'
+import { VStack } from '@/shared/ui/Stack'
 import { getSidebarItems } from './model/selectors/getSidebarItems'
 // import { SideBarItemsList } from './model/items'
 import cls from './SideBar.module.sass'
 import { SideBarItem } from './SideBarItem/SideBarItem'
+import { ButtonSize, ThemeButton } from '@/shared/ui/Button'
 
 interface SideBarProps {
   className?: string
@@ -20,7 +21,6 @@ export const SideBar = memo((props: SideBarProps) => {
     setCollapsed((prev) => !prev)
   }
 
-  console.log('SideBarItemsList: ', SideBarItemsList)
   const itemsList = useMemo(
     () => SideBarItemsList.map((item) => <SideBarItem collapsed={collapsed} key={item.path} item={item} />),
     [collapsed, SideBarItemsList]
@@ -38,7 +38,9 @@ export const SideBar = memo((props: SideBarProps) => {
       >
         {collapsed ? '>' : '<'}
       </Button>
-      <div className={cls.items}>{itemsList}</div>
+      <VStack gap={'8'} classname={cls.items}>
+        {itemsList}
+      </VStack>
       <div className={cls.switchers}>
         <ThemeSwitcher />
         <LangSwitcher className={cls.lang} />

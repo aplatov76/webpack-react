@@ -1,23 +1,21 @@
 import { CombinedState, configureStore, DeepPartial, getDefaultMiddleware, ReducersMapObject } from '@reduxjs/toolkit'
 import { StateSchema } from './StateSchema'
-import { counterReducer } from 'features/Counter/index'
-import { userReducer } from 'entities/User'
+import { counterReducer } from '@/features/Counter/index'
+import { userReducer } from '@/entities/User'
+import { reducer as uiReducer } from '@/features/UI/'
 import { createReducerManager } from './reducerManager'
-import { $api } from 'shared/api/api'
+import { $api } from '@/shared/api/api'
 import { NavigateOptions, To, useNavigate } from 'react-router-dom'
 import { Reducer } from 'react'
-
-const rootReducers = {
-  counter: counterReducer,
-  //loginForm: reducer,
-  user: userReducer
-}
+import { rtkApi } from '@/shared/api/rtkApi'
 
 export function createReduxStore(initialState?: StateSchema, navigate?: (to: To, options?: NavigateOptions) => void) {
   const rootReducers: ReducersMapObject<StateSchema> = {
     counter: counterReducer,
     //loginForm: loginReducer,
-    user: userReducer
+    user: userReducer,
+    ui: uiReducer,
+    [rtkApi.reducerPath]: rtkApi.reducer
   }
 
   //const navigate = useNavigate()
@@ -33,11 +31,11 @@ export function createReduxStore(initialState?: StateSchema, navigate?: (to: To,
       getDefaultMiddleware({
         thunk: {
           extraArgument: {
-            api: $api,
-            navigate
+            api: $api
+            //navigate
           }
         }
-      })
+      }).concat(rtkApi.middleware)
   })
 
   // @ts-ignore

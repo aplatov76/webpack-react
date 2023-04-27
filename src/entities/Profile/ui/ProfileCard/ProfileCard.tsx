@@ -1,12 +1,11 @@
 import cls from './ProfileCard.module.sass'
-import { classNames } from 'shared/lib/classNames'
-import { type ProfileType } from 'entities/Profile'
-import { Text, ThemeText } from 'shared/ui/Text'
-import { Input } from 'shared/ui/Input/ui/Input/Input'
-import { Spinner } from 'shared/ui/Spinner'
-import { Select } from 'shared/ui/Select/Select'
-import { Currency } from 'entities/Currency'
-import { CurrencySelect } from 'entities/Currency/ui/CurrencySelect/CurrencySelect'
+import { classNames } from '@/shared/lib/classNames'
+import { type ProfileType } from '@/entities/Profile'
+import { Text, ThemeText } from '@/shared/ui/Text'
+import { Input } from '@/shared/ui/Input'
+import { Spinner } from '@/shared/ui/Spinner'
+import { CurrencySelect } from '@/entities/Currency/ui/CurrencySelect/CurrencySelect'
+import { VStack } from '@/shared/ui/Stack'
 
 interface ProfileCardProps {
   classname?: string
@@ -18,6 +17,7 @@ interface ProfileCardProps {
   onChangeFirstname: () => void
   onChangeAge: () => void
   onChangeCity: () => void
+  onChangeCurrency: () => void
 }
 
 export const ProfileCard = ({
@@ -29,7 +29,8 @@ export const ProfileCard = ({
   onChangeFirstname,
   onChangeLastname,
   onChangeAge,
-  onChangeCity
+  onChangeCity,
+  onChangeCurrency
 }: ProfileCardProps) => {
   if (isLoading) {
     return (
@@ -52,14 +53,12 @@ export const ProfileCard = ({
   }
 
   return (
-    <div className={classNames(cls.ProfileCard, {}, [classname])}>
-      <div className={cls.data}>
-        <Input value={data?.first} onChange={onChangeFirstname} readonly={readonly} className={cls.input} />
-        <Input value={data?.lastname} onChange={onChangeLastname} readonly={readonly} className={cls.input} />
-        <Input value={data?.age} onChange={onChangeAge} readonly={readonly} className={cls.input} />
-        <Input value={data?.city} onChange={onChangeCity} readonly={readonly} className={cls.input} />
-        <CurrencySelect value={data?.currency} />
-      </div>
-    </div>
+    <VStack gap={'4'} classname={classNames(cls.ProfileCard, {}, [classname])}>
+      <Input value={data?.first} onChange={onChangeFirstname} readonly={readonly} />
+      <Input value={data?.lastname} onChange={onChangeLastname} readonly={readonly} />
+      <Input value={data?.age} onChange={onChangeAge} readonly={readonly} />
+      <Input value={data?.city} onChange={onChangeCity} readonly={readonly} />
+      <CurrencySelect value={data?.currency} onChange={onChangeCurrency} />
+    </VStack>
   )
 }

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { type ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema'
-import { type Comment } from 'entities/Comment'
+import { type ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema'
+import { type Comment } from '@/entities/Comment'
 
 export const fetchCommentsByArticleId = createAsyncThunk<Comment[], string | undefined, ThunkConfig<string>>(
   'login/loginByUsername',

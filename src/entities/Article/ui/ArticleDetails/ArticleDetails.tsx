@@ -1,27 +1,30 @@
 /* eslint-disable react/display-name */
-import { type Article } from 'entities/Article'
+import { type Article } from '@/entities/Article'
 import {
   getArticleDetailData,
   getArticleDetailError,
   getArticleDetailIsLoading
-} from 'entities/Article/model/selectors/getArticle.selector'
-import { fetchArticleById } from 'entities/Article/model/services/fetchArticleById/fetchArticleById'
+} from '@/entities/Article/model/selectors/getArticle.selector'
+import { fetchArticleById } from '@/entities/Article/model/services/fetchArticleById/fetchArticleById'
 import { useEffect, memo, useCallback } from 'react'
 import { useSelector } from 'react-redux'
-import { classNames } from 'shared/lib/classNames'
-import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
-import { Icon, Skeleton } from 'shared/ui/'
-import { Avatar } from 'shared/ui/Avatar/Avatar'
-import { Text } from 'shared/ui/Text'
+import { classNames } from '@/shared/lib/classNames'
+import { DynamicModuleLoader, type ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
+import { Icon, Skeleton } from '@/shared/ui'
+import { Avatar } from '@/shared/ui/Avatar'
+import { Text } from '@/shared/ui/Text'
 import { reducer as articleDetailsReducer } from '../../model/slice/articleDetailsSlice'
-import EyeIcon from 'shared/assets/icons/eye-20-20.svg'
-import CalendarIcon from 'shared/assets/icons/calendar-20-20.svg'
+import EyeIcon from '@/shared/assets/icons/eye-20-20.svg'
+import CalendarIcon from '@/shared/assets/icons/calendar-20-20.svg'
 import cls from './ArticleDetails.module.sass'
 import { type ArticleBlock } from '../../model/types/article'
 import { ArticleCodeBlockComponent } from '../ArticleCodeBlockComponent/ArticleCodeBlockComponent'
 import { ArticleImageBlockComponent } from '../ArticleImageBlockComponent/ArticleImageBlockComponent'
 import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent'
+// eslint-disable-next-line max-len
+import { reducer as ArticleDetailsRecommendations } from '@/pages/ArticleDetailsPage/model/slice/articleDetailsPageRecommendationsSlice'
+import { HStack, VStack } from '@/shared/ui/Stack'
 
 interface ArticleDetailsProps {
   classname?: string
@@ -30,6 +33,8 @@ interface ArticleDetailsProps {
 
 const reducers: ReducersList = {
   articleDetails: articleDetailsReducer
+  // articleDetailsPage: ArticleDetailsRecommendations
+  // articleDetailsPage: ArticleDetailsPag
 }
 
 export const ArticleDetails = memo((props: ArticleDetailsProps) => {
@@ -76,21 +81,21 @@ export const ArticleDetails = memo((props: ArticleDetailsProps) => {
   }
   return (
     <DynamicModuleLoader reducers={reducers}>
-      <div className={classNames(cls.ArticleDetails)}>
-        <>
+      <VStack>
+        <HStack justify="center">
           <Avatar size={200} src={article?.img} />
-          <Text title={article?.title} text={article?.subtitle} />
-          <div className={cls.flex}>
-            <Icon Svg={EyeIcon} />
-            <Text text={String(article?.views)} />
-          </div>
-          <div className={cls.flex}>
-            <Icon Svg={CalendarIcon} />
-            <Text text={String(article?.createdAt)} />
-          </div>
-          {article?.blocks.map(renderBlock)}
-        </>
-      </div>
+        </HStack>
+        <Text title={article?.title} text={article?.subtitle} />
+        <HStack>
+          <Icon Svg={EyeIcon} />
+          <Text text={String(article?.views)} />
+        </HStack>
+        <HStack gap={'4'}>
+          <Icon Svg={CalendarIcon} />
+          <Text text={String(article?.createdAt)} />
+        </HStack>
+        {article?.blocks.map(renderBlock)}
+      </VStack>
     </DynamicModuleLoader>
   )
 })

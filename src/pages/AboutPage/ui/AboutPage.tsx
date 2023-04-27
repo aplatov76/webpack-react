@@ -1,8 +1,16 @@
 import { useTranslation } from 'react-i18next'
-import { Page } from 'shared/ui/Page/Page'
+import { Page } from '@/widgets/Page/Page'
+import { StartRating } from '@/shared/ui/StartRating'
+import { Rating } from '@/entities/Rating'
 
 const AboutPage = () => {
   const { t } = useTranslation('about')
-  return <Page>{t('О сайте')}</Page>
+  return (
+    <Page>
+      {t('О сайте')}
+      <StartRating />
+      <Rating title={'Ваш фитбэк'} feedbackTitle={'Оставьте отзыв о статье'} hasFeedback />
+    </Page>
+  )
 }
 export default AboutPage

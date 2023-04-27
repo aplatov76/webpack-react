@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react'
-import { classNames } from 'shared/lib/classNames'
-import { Modal } from 'shared/ui'
-import { Spinner } from 'shared/ui/Spinner'
+import { classNames } from '@/shared/lib/classNames'
+import { Modal } from '@/shared/ui/Modal'
+import { Spinner } from '@/shared/ui/Spinner'
 import { LoginFormAsync } from '../LoginForm/LoginForm.async'
 import cls from './LoginModal.module.sass'
 

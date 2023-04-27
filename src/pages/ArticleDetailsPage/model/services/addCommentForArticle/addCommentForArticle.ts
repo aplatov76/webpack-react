@@ -2,9 +2,9 @@
 /* eslint-disable @typescript-eslint/no-invalid-void-type */
 /* eslint-disable @typescript-eslint/promise-function-async */
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { type ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema'
-import { getArticleDetailData } from 'entities/Article/model/selectors/getArticle.selector'
-import { getUserAuthData } from 'entities/User/model/selectors/getUserAuthData/getUserAuthData'
+import { type ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema'
+import { getArticleDetailData } from '@/entities/Article/model/selectors/getArticle.selector'
+import { getUserAuthData } from '@/entities/User/model/selectors/getUserAuthData/getUserAuthData'
 // import { fetchCommentsByArticleId } from '../fetchCommentsByArticleId/fetchCommentsByArticleId'
 // import { addCommentFormSelector } from '../../../../../features/AddCommentForm/model/selectors/addCommentForm.selector'
 import { fetchCommentsByArticleId } from '../fetchCommentsByArticleId/fetchCommentsByArticleId'

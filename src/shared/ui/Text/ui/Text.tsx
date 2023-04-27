@@ -1,4 +1,4 @@
-import { classNames, type ModsType } from 'shared/lib/classNames'
+import { classNames, type ModsType } from '@/shared/lib/classNames'
 import cls from './Text.module.sass'
 
 export enum ThemeText {

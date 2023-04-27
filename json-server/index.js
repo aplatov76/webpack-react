@@ -30,18 +30,24 @@ server.use((req, res, next) => {
   next()
 })
 
+// Эндпоинт для логина
 server.post('/login', (req, res) => {
-  const { username, password } = req.body
-  const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'))
-  const { users } = db
+  try {
+    const { username, password } = req.body
+    const db = JSON.parse(fs.readFileSync(path.resolve(__dirname, 'db.json'), 'UTF-8'))
+    const { users = [] } = db
 
-  const userFromDb = users.find((user) => user.username === username && user.password === password)
+    const userFromBd = users.find((user) => user.username === username && user.password === password)
 
-  if (userFromDb) {
-    return res.json(userFromDb)
+    if (userFromBd) {
+      return res.json(userFromBd)
+    }
+
+    return res.status(403).json({ message: 'User not found' })
+  } catch (e) {
+    console.log(e)
+    return res.status(500).json({ message: e.message })
   }
-
-  return res.status(403).json({ message: 'AUTH_ERROR' })
 })
 
 server.get('/profile', (req, res) => {

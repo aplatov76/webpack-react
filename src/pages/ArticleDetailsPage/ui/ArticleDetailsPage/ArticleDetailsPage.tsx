@@ -1,40 +1,34 @@
-import { ArticleDetails } from 'entities/Article'
-import { CommentList } from 'entities/Comment'
+import { ArticleDetails } from '@/entities/Article'
 import { memo, useCallback } from 'react'
-import { Navigate, useNavigate, useParams } from 'react-router-dom'
-import { classNames } from 'shared/lib/classNames'
-import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
-import {
-  reducer as ArticleDetailsCommentReducer,
-  getArticleComments
-} from '../../model/slice/articleDetailsCommentSlice'
-import { Text } from 'shared/ui/Text'
+import { useParams } from 'react-router-dom'
+import { classNames } from '@/shared/lib/classNames'
+import { DynamicModuleLoader, type ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
 import cls from './ArticleDetailsPage.module.sass'
-import { useSelector } from 'react-redux'
-import { getArticleCommentsIsLoading } from '../../model/selectors/commets.selector'
-import { useInitialEffects } from 'shared/lib/hooks/useInitialEffects/useInitialEffects'
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
+import { useInitialEffects } from '@/shared/lib/hooks/useInitialEffects/useInitialEffects'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
 // eslint-disable-next-line max-len
-import { fetchCommentsByArticleId } from 'pages/ArticleDetailsPage/model/services/fetchCommentsByArticleId/fetchCommentsByArticleId'
-import { AddCommentForm } from 'features/AddCommentForm'
-import { addCommentForArticle } from 'pages/ArticleDetailsPage/model/services/addCommentForArticle/addCommentForArticle'
-import { Button } from 'shared/ui'
-import { ThemeButton } from 'shared/ui/Button/ui/Button'
-import { AppRoutes, RoutePath } from 'shared/config/routeConfig/routeConfig'
-import { Page } from 'shared/ui/Page/Page'
+import { fetchCommentsByArticleId } from '@/pages/ArticleDetailsPage/model/services/fetchCommentsByArticleId/fetchCommentsByArticleId'
+import { addCommentForArticle } from '@/pages/ArticleDetailsPage/model/services/addCommentForArticle/addCommentForArticle'
+
+import { Page } from '@/widgets/Page/Page'
+// eslint-disable-next-line max-len
+import { articleDetailsPageReducer } from '@/pages/ArticleDetailsPage/model/slice'
+import { ArticleDetailsPageHeader } from '../ArticleDetailsPageHeader/ArticleDetailsPageHeader'
+import { ArticleRecommendationsList } from '@/features/articleRecommendationsList'
+import { ArticleDetailsComments } from '../ArticleDetailsComments/ArticleDetailsComments'
+import { ArticleRating } from '@/features/articleRating'
 
 interface ArticleDetailsPageProps {
   classname?: string
 }
 
 const reducers: ReducersList = {
-  articleDetailsComments: ArticleDetailsCommentReducer
+  articleDetailsPage: articleDetailsPageReducer
 }
 
 const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
   const { classname } = props
-  const comments = useSelector(getArticleComments.selectAll)
-  const isLoading = useSelector(getArticleCommentsIsLoading)
+
   const dispatch = useAppDispatch()
 
   const { id } = useParams<{ id: string }>()
@@ -45,13 +39,12 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
     },
     [dispatch]
   )
-  const navigate = useNavigate()
-  const onBackToList = useCallback(() => {
-    navigate(RoutePath[AppRoutes.ARTICLES])
-  }, [])
 
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
-  useInitialEffects(() => dispatch(fetchCommentsByArticleId(id)))
+  useInitialEffects(() => {
+    dispatch(fetchCommentsByArticleId(id))
+    // dispatch(fetchRecommendationArticlesList())
+  })
 
   if (!id) {
     return (
@@ -64,13 +57,11 @@ const ArticleDetailsPage = (props: ArticleDetailsPageProps) => {
     <DynamicModuleLoader reducers={reducers}>
       <Page>
         <div className={classNames(cls.ArticleDetailsPage, {}, [classname])}>
-          <Button theme={ThemeButton.OUTLINE} onClick={onBackToList}>
-            Назад к списку
-          </Button>
+          <ArticleDetailsPageHeader />
           <ArticleDetails id={id} />
-          <Text title="Комментарии" classname={cls.commentTitle} />
-          <AddCommentForm onSendComment={onSendComment} />
-          <CommentList isLoading={isLoading} comments={comments} />
+          <ArticleRating articleId={id} />
+          <ArticleRecommendationsList />
+          <ArticleDetailsComments />
         </div>
       </Page>
     </DynamicModuleLoader>

@@ -1,4 +1,4 @@
-import { type StateSchema } from 'app/providers/StoreProvider/config/StateSchema'
+import { type StateSchema } from '@/app/providers/StoreProvider/config/StateSchema'
 
 export const getLoginState = (state: StateSchema) =>
   state?.loginForm ?? { username: '', password: '', error: null, isLoading: false }

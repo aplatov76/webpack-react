@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { memo, type InputHTMLAttributes } from 'react'
-import { classNames, type ModsType } from 'shared/lib/classNames'
+import { classNames, type ModsType } from '@/shared/lib/classNames'
 import cls from './Input.module.sass'
 
 type HTMLInputProps = Omit<InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'readOnly'>

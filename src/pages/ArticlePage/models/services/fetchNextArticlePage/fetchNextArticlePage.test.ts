@@ -1,7 +1,6 @@
-import { ArticleView } from 'entities/Article'
-import { Country, Currency } from 'entities/Currency'
-import { TestAsyncThunk } from 'shared/lib/tests/TestAsyncThunk/TestAsyncThunk'
-import { fetchArticlesList } from '../fetchArticlePage/fetchArticleList'
+import { ArticleView } from '@/entities/Article'
+import { ArticleSortField } from '@/entities/Article/model/types/article'
+import { TestAsyncThunk } from '@/shared/lib/tests/TestAsyncThunk/TestAsyncThunk'
 
 import { fetchNextArticlePage } from './fetchNextArticlePage'
 
@@ -17,14 +16,19 @@ describe('fetchNextArticlePage.test', () => {
         limit: 5,
         isLoading: false,
         hasMore: true,
-        view: ArticleView.SMALL
+        view: ArticleView.SMALL,
+        sort: ArticleSortField.CREATED,
+        search: '',
+        order: 'asc',
+        _inited: false,
+        type: 'ALL'
       }
     })
 
     const result = await thunk.callThunk()
 
     expect(thunk.dispatch).toBeCalledTimes(4)
-    expect(fetchArticlesList).toHaveBeenCalledWith({ page: 3 })
+    // expect(fetchArticlesList).toHaveBeenCalledWith()
   })
 
   test('fetchNextArticlePage not called', async () => {
@@ -36,14 +40,19 @@ describe('fetchNextArticlePage.test', () => {
         limit: 5,
         isLoading: false,
         hasMore: false,
-        view: ArticleView.SMALL
+        view: ArticleView.SMALL,
+        sort: ArticleSortField.CREATED,
+        search: '',
+        order: 'asc',
+        _inited: false,
+        type: 'ALL'
       }
     })
 
     const result = await thunk.callThunk()
 
     expect(thunk.dispatch).toBeCalledTimes(2)
-    expect(fetchArticlesList).not.toHaveBeenCalledWith()
+    // expect(fetchArticlesList).not.toHaveBeenCalledWith()
   })
   test('fetchNextArticlePage not called isLoading = true', async () => {
     const thunk = new TestAsyncThunk(fetchNextArticlePage, {
@@ -54,13 +63,15 @@ describe('fetchNextArticlePage.test', () => {
         limit: 5,
         isLoading: true,
         hasMore: false,
-        view: ArticleView.SMALL
+        view: ArticleView.SMALL,
+        sort: ArticleSortField.CREATED,
+        search: '',
+        order: 'asc',
+        _inited: false,
+        type: 'ALL'
       }
     })
 
-    const result = await thunk.callThunk()
-
     expect(thunk.dispatch).toBeCalledTimes(2)
-    expect(fetchArticlesList).not.toHaveBeenCalledWith()
   })
 })

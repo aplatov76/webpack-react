@@ -3,9 +3,9 @@
 /* eslint-disable no-unused-vars */
 // eslint-disable-next-line max-len
 import { createEntityAdapter, createSlice, type PayloadAction } from '@reduxjs/toolkit'
-import { type StateSchema } from 'app/providers/StoreProvider/config/StateSchema'
-import { type Comment } from 'entities/Comment'
-import { type ArticleDetailsCommentSchema } from 'pages/ArticleDetailsPage'
+import { type StateSchema } from '@/app/providers/StoreProvider/config/StateSchema'
+import { type Comment } from '@/entities/Comment'
+import { type ArticleDetailsCommentSchema } from '@/pages/ArticleDetailsPage'
 import { fetchCommentsByArticleId } from '../services/fetchCommentsByArticleId/fetchCommentsByArticleId'
 
 const commentsAdapter = createEntityAdapter<Comment>({
@@ -14,7 +14,7 @@ const commentsAdapter = createEntityAdapter<Comment>({
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const getArticleComments = commentsAdapter.getSelectors<StateSchema>(
-  (state) => state.articleDetailsComments || commentsAdapter.getInitialState()
+  (state) => state.articleDetailsPage?.comments || commentsAdapter.getInitialState()
 )
 
 const articleDetailsCommentSlice = createSlice({

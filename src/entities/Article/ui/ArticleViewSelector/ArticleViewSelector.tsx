@@ -1,10 +1,8 @@
-import { ArticleView } from 'entities/Article'
-import cls from './ArticleViewSelector.sass'
-import ListIcon from 'shared/assets/icons/list-24-24.svg'
-import TiledIcon from 'shared/assets/icons/tiled-24-24.svg'
-import { classNames } from 'shared/lib/classNames'
-import { Button, Icon } from 'shared/ui'
-import { ThemeButton } from 'shared/ui/Button/ui/Button'
+import { ArticleView } from '@/entities/Article'
+import ListIcon from '@/shared/assets/icons/list-24-24.svg'
+import TiledIcon from '@/shared/assets/icons/tiled-24-24.svg'
+import { Button, ThemeButton } from '@/shared/ui/Button'
+import { Icon } from '@/shared/ui/Icon'
 
 interface ArticleViewSelectorProps {
   classname?: string

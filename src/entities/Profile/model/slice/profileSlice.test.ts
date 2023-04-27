@@ -1,5 +1,5 @@
 import { type DeepPartial } from '@reduxjs/toolkit'
-import { Country, Currency } from 'entities/Currency'
+import { Country, Currency } from '@/entities/Currency'
 import { type ProfileSchema } from '../types/profile'
 import { reducer as profileReducer, setProfileData, setReadonly } from './profileSlice'
 

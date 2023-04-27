@@ -1,31 +1,32 @@
+/* eslint-disable @typescript-eslint/array-type */
 /* eslint-disable react/display-name */
 /* eslint-disable no-unused-vars */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { classNames, type ModsType } from 'shared/lib/classNames'
+import { classNames, type ModsType } from '@/shared/lib/classNames'
 import { memo, type ReactNode, useMemo, type ChangeEvent } from 'react'
 import cls from './Select.module.sass'
 
-type SelectOption = {
-  value: string
+export interface SelectOption<T extends string> {
+  value: T
   content: string
 }
 
-interface SelectPropsInterface {
+interface SelectPropsInterface<T extends string> {
   classname?: string
   label?: string
-  options?: SelectOption[]
-  value?: string
-  onChange?: (value: string) => void
+  options?: SelectOption<T>[]
+  value?: T
+  onChange?: (value: T) => void
   readonly?: boolean
 }
 // 52.50
-export const Select = memo((props: SelectPropsInterface) => {
+export const Select = <T extends string>(props: SelectPropsInterface<T>) => {
   const { classname, label, options, onChange, value, readonly } = props
   const mods: ModsType = {}
 
   const onChangeHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-    onChange?.(e.target.value)
+    onChange?.(e.target.value as T)
   }
 
   const optionList = useMemo<ReactNode>(() => {
@@ -44,4 +45,4 @@ export const Select = memo((props: SelectPropsInterface) => {
       </select>
     </div>
   )
-})
+}

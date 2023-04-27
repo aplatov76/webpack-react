@@ -1,6 +1,6 @@
 /* eslint-disable react/display-name */
 import { type ButtonHTMLAttributes, type ReactNode, memo } from 'react'
-import { classNames, type ModsType } from 'shared/lib/classNames'
+import { classNames, type ModsType } from '@/shared/lib/classNames'
 import cls from './Button.module.sass'
 
 export enum ThemeButton {

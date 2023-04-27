@@ -20,14 +20,14 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     project: 'tsconfig.json'
   },
-  plugins: ['react', 'react-hooks'],
+  plugins: ['react', 'react-hooks', 'webpack-project-plugin'],
   ignorePatterns: ['**/config/*', '**/webpack.config.ts'],
   rules: {
     'max-len': [
       'error',
       {
         ignoreComments: true,
-        code: 120
+        code: 150
       }
     ],
     'react/jsx-indent': [2, 2],
@@ -55,6 +55,7 @@ module.exports = {
     'react/display-name': 'off',
     'react/no-unused-vars': 'off',
     '@typescript-eslint/promise-function-async': 'off',
-    '@typescript-eslint/consistent-type-definitions': 'off'
+    '@typescript-eslint/consistent-type-definitions': 'off',
+    'webpack-project-plugin/layer-imports': ['error', { alias: '@', ignoreImportPatterns: ['**/StoreDecorator.tsx'] }]
   }
 }

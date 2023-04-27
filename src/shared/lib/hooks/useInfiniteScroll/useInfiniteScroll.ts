@@ -8,9 +8,11 @@ export interface UseInfiniteScrollProps {
 
 export function useInfinityScroll({ callback, wrapperRef, triggerRef }: UseInfiniteScrollProps) {
   useEffect(() => {
+    const clonetriggerRef = triggerRef.current
+    const clonewrapperRef = wrapperRef.current
     if (callback) {
       const options = {
-        root: wrapperRef.current,
+        root: clonewrapperRef,
         rootMargin: '0px',
         threshold: 1.0
       }
@@ -22,11 +24,11 @@ export function useInfinityScroll({ callback, wrapperRef, triggerRef }: UseInfin
         }
       }, options)
 
-      observer.observe(triggerRef.current)
+      observer.observe(clonetriggerRef)
 
       return () => {
         if (observer) {
-          observer.unobserve(triggerRef.current)
+          observer.unobserve(clonetriggerRef)
         }
       }
     }

@@ -3,9 +3,9 @@
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
 import { type FC, useEffect } from 'react'
 import { useStore } from 'react-redux'
-import { type ReduxStoreWithManager, type StateSchemaKey } from 'app/providers/StoreProvider/config/StateSchema'
+import { type ReduxStoreWithManager, type StateSchemaKey } from '@/app/providers/StoreProvider/config/StateSchema'
 import { type Reducer } from '@reduxjs/toolkit'
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
 
 export type ReducersList = {
   [name in StateSchemaKey]?: Reducer
@@ -26,10 +26,13 @@ export const DynamicModuleLoader: FC<DynamicModuleLoaderProps> = (props) => {
   const dispatch = useAppDispatch()
 
   useEffect(() => {
+    const mountedReducers = store.reducerManager.getMountedReducers()
     Object.entries(reducers).forEach(([name, reducer]) => {
-      console.log('reducers: ', name)
-      store.reducerManager.add(name as StateSchemaKey, reducer)
-      dispatch({ type: `@INIT ${name} reducer` })
+      const mounted = mountedReducers[name as StateSchemaKey]
+      if (!mounted) {
+        store.reducerManager.add(name as StateSchemaKey, reducer)
+        dispatch({ type: `@INIT ${name} reducer` })
+      }
     })
 
     return () => {

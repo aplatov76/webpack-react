@@ -1,25 +1,24 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 /* eslint-disable max-len */
-import { ArticleList, type ArticleView, ArticleViewSelector } from 'entities/Article'
-import { type Article } from 'entities/Article/model/types/article'
-import { getArticlesList, reducer, actions } from '../../models/slices/articlePage.slice'
+import { ArticleList } from '@/entities/Article'
+import { type Article } from '@/entities/Article/model/types/article'
+import { getArticlesList, reducer } from '../../models/slices/articlePage.slice'
 import { memo, useCallback, useEffect } from 'react'
-import { classNames } from 'shared/lib/classNames'
-import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
+import { classNames } from '@/shared/lib/classNames'
+import { DynamicModuleLoader, type ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
 import cls from './ArticlePage.module.sass'
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
-import { fetchArticlesList } from 'pages/ArticlePage/models/services/fetchArticlePage/fetchArticleList'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
 import { useSelector } from 'react-redux'
 import {
   getArticlePageError,
-  getArticlePageHasMore,
   getArticlePageIsLoading,
-  getArticlePageLimit,
-  getArticlePagePage,
   getArticlePageView
-} from 'pages/ArticlePage/models/selectors/articlePage.selector'
-import { Page } from 'shared/ui/Page/Page'
-import { fetchNextArticlePage } from 'pages/ArticlePage/models/services/fetchNextArticlePage/fetchNextArticlePage'
+} from '@/pages/ArticlePage/models/selectors/articlePage.selector'
+import { Page } from '@/widgets/Page/Page'
+import { fetchNextArticlePage } from '@/pages/ArticlePage/models/services/fetchNextArticlePage/fetchNextArticlePage'
+import { initArticlePage } from '@/pages/ArticlePage/models/services/initArticlePage/initArticlePage'
+import { ArticlePageFilter } from '../ArticlePageFilter/ArticlePageFilter'
+import { useSearchParams } from 'react-router-dom'
 
 interface ArticlePageProps {
   classname?: string
@@ -111,26 +110,26 @@ const ArticlePage = (props: ArticlePageProps) => {
   const isLoading = useSelector(getArticlePageIsLoading)
   const error = useSelector(getArticlePageError)
   const view = useSelector(getArticlePageView)
+  const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
-    dispatch(actions.initState())
-    // dispatch(fetchArticlesList({}))
+    dispatch(initArticlePage(searchParams))
   }, [])
 
   const onLoadNextPart = useCallback(() => {
     dispatch(fetchNextArticlePage())
   }, [dispatch])
 
-  const changeView = (view: ArticleView) => {
-    dispatch(actions.setView(view))
+  if (error) {
+    return <ArticleList classname={cls.list} isLoading={isLoading} view={view} articles={[]} />
   }
 
   return (
     <DynamicModuleLoader reducers={reducers}>
       <div className={classNames(cls.ArticleDetailsPage, {}, [classname])}>
         <Page onScrollEnd={onLoadNextPart}>
-          <ArticleViewSelector view={view} onViewClicked={changeView} />
-          <ArticleList isLoading={isLoading} view={view} articles={articles} />
+          <ArticlePageFilter />
+          <ArticleList classname={cls.list} isLoading={isLoading} view={view} articles={articles} />
         </Page>
       </div>
     </DynamicModuleLoader>

@@ -1,7 +1,8 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import ReactRefreshWebpackPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 import webpack from 'webpack'
-import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer'
 
 export function buildPlugins(
   html: string,
@@ -22,16 +23,22 @@ export function buildPlugins(
       _IS_DEV_: JSON.stringify(isDev),
       _API_: JSON.stringify(apiUrl),
       _PROJECT_: JSON.stringify(project)
+    }),
+    new ForkTsCheckerWebpackPlugin({
+      typescript: {
+        diagnosticOptions: {
+          semantic: true,
+          syntactic: true
+        },
+        mode: 'write-references'
+      }
     })
   ]
 
   if (isDev) {
+    plugins.push(new ReactRefreshWebpackPlugin())
     plugins.push(new webpack.HotModuleReplacementPlugin())
-    plugins.push(
-      new BundleAnalyzerPlugin({
-        openAnalyzer: true
-      })
-    )
+    //plugins.push(new webpack.HotModuleReplacementPlugin())
   }
 
   return plugins

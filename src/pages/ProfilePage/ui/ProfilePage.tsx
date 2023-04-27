@@ -1,6 +1,5 @@
-import { reducer } from 'entities/Profile/model/slice/profileSlice'
-import { useCallback, useEffect } from 'react'
-import { classNames } from 'shared/lib/classNames'
+import { reducer } from '@/entities/Profile/model/slice/profileSlice'
+import { useCallback } from 'react'
 import { useSelector } from 'react-redux'
 import {
   getProfileForm,
@@ -9,17 +8,16 @@ import {
   updateProfile,
   fetchProfileData,
   getProfileReadonly,
-  getProfileValidateErrors,
-  ProfileCard
-} from 'entities/Profile'
-import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
-import cls from './ProfilePage.module.sass'
-import { ProfilePageHeader } from './ProfilePageHeader/ProfilePageHeader'
-import { getUserAuthData } from 'entities/User/model/selectors/getUserAuthData/getUserAuthData'
-import { useInitialEffects } from 'shared/lib/hooks/useInitialEffects/useInitialEffects'
+  getProfileValidateErrors
+} from '@/entities/Profile'
+import { DynamicModuleLoader, type ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
+import { useInitialEffects } from '@/shared/lib/hooks/useInitialEffects/useInitialEffects'
 import { useParams } from 'react-router-dom'
-import { Page } from 'shared/ui/Page/Page'
+import { Page } from '@/widgets/Page/Page'
+import { VStack } from '@/shared/ui/Stack'
+import { type Currency } from '@/entities/Currency'
+import { EditableProfileCard } from '@/features/editableProfileCard'
 
 interface ProfilePageProps {
   className?: string
@@ -31,11 +29,7 @@ const reducers: ReducersList = {
 
 const ProfilePage = ({ className }: ProfilePageProps) => {
   const dispatch = useAppDispatch()
-  const formData = useSelector(getProfileForm)
-  const formErrors = useSelector(getProfileValidateErrors)
-  const error = useSelector(getProfileError)
-  const isLoading = useSelector(getProfileIsLoading)
-  const readonly = useSelector(getProfileReadonly)
+
   const { id } = useParams<{ id: string }>()
 
   useInitialEffects(() => {
@@ -50,7 +44,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
   )
 
   const onChangeLastname = useCallback(
-    (value?: string) => {
+    (value?: Currency) => {
       dispatch(updateProfile({ lastname: value ?? '' }))
     },
     [dispatch]
@@ -68,24 +62,19 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
     },
     [dispatch]
   )
+  const onChangeCurrency = useCallback(
+    (value?: Currency) => {
+      dispatch(updateProfile({ currency: value }))
+    },
+    [dispatch]
+  )
 
   return (
     <DynamicModuleLoader reducers={reducers}>
       <Page>
-        <div className={classNames(cls.ProfilePage, {}, [className])}>
-          <ProfilePageHeader />
-          {formErrors?.length && formErrors.map((error) => <p key={error}> {error} </p>)}
-          <ProfileCard
-            onChangeLastname={onChangeLastname}
-            onChangeFirstname={onChangeFirstname}
-            onChangeAge={onChangeAge}
-            onChangeCity={onChangeCity}
-            data={formData}
-            readonly={readonly}
-            error={error}
-            isLoading={isLoading}
-          />
-        </div>
+        <VStack gap={'10'}>
+          <EditableProfileCard />
+        </VStack>
       </Page>
     </DynamicModuleLoader>
   )

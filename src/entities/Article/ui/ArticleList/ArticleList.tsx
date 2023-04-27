@@ -1,8 +1,9 @@
-import { ArticleView, type Article } from 'entities/Article'
+import { ArticleView, type Article } from '@/entities/Article'
 import cls from './ArticleList.module.sass'
-import { classNames } from 'shared/lib/classNames'
+import { classNames } from '@/shared/lib/classNames'
 import { ArticleListItem } from '../ArticleListItem/ArticleListItem'
 import { ArticleListItemSkeleton } from '../ArticleListItem/ArticleListItemSkeleton'
+import { Text } from '@/shared/ui/Text'
 
 interface ArticleListProps {
   classname?: string
@@ -28,6 +29,14 @@ export const ArticleList = (props: ArticleListProps) => {
     )
   }
 
+  if (!isLoading && articles.length < 1) {
+    return (
+      <div className={classNames('', {}, [classname, cls[view]])}>
+        <Text title="Статьи не найдены" />
+      </div>
+    )
+  }
+
   return (
     <div className={classNames('', {}, [classname, cls[view]])}>
       {articles.length ? articles.map(renderArticle) : null}
@@ -35,3 +44,9 @@ export const ArticleList = (props: ArticleListProps) => {
     </div>
   )
 }
+/*
+    <div className={classNames('', {}, [classname, cls[view]])}>
+      {articles.length ? articles.map(renderArticle) : null}
+      {isLoading && getSkeleton()}
+    </div>
+*/

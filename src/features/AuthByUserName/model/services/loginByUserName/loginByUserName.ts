@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/promise-function-async */
 import { createAsyncThunk } from '@reduxjs/toolkit'
-import { setAuthData, type User } from 'entities/User'
-import { type ThunkExtraArg, type ThunkConfig } from 'app/providers/StoreProvider/config/StateSchema'
-import { USER_LOCALSTORAGE_KEY } from 'shared/const/localStorage'
+import { setAuthData, type User } from '@/entities/User'
+import { type ThunkExtraArg, type ThunkConfig } from '@/app/providers/StoreProvider/config/StateSchema'
+import { USER_LOCALSTORAGE_KEY } from '@/shared/const/localStorage'
 
 interface LoginByUserNameProps {
   username: string

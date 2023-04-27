@@ -1,14 +1,18 @@
 import { useCallback, useState } from 'react'
-import { classNames } from 'shared/lib/classNames'
-import { Button } from 'shared/ui/index'
-import { AppLink } from 'shared/ui/'
+import { classNames } from '@/shared/lib/classNames'
+import { Button, ThemeButton } from '@/shared/ui/Button'
+import { AppLink } from '@/shared/ui/AppLink'
 import cls from './NavBar.module.sass'
-import { ThemeButton } from 'shared/ui/Button/ui/Button'
-import { LoginModal } from 'features/AuthByUserName'
+import { LoginModal } from '@/features/AuthByUserName'
 import { useSelector } from 'react-redux'
-import { getUserAuthData } from 'entities/User/model/selectors/getUserAuthData/getUserAuthData'
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
-import { logout } from 'entities/User'
+import { getUserAuthData } from '@/entities/User/model/selectors/getUserAuthData/getUserAuthData'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
+import { isUserAdmin, isUserManager, logout } from '@/entities/User'
+import { RoutePath } from '@/app/providers/router/config/routeConfig'
+import { HStack } from '@/shared/ui/Stack'
+
+import { NotificationButton } from '@/features/notificationButton'
+import { AvatarDropDown } from '@/entities/avatarDropdown/'
 
 interface NavBarPropsInterface {
   className?: string
@@ -22,7 +26,11 @@ export const NavBar = ({ className = 'navbar' }: NavBarPropsInterface) => {
     setIsOpen(false)
   }, [setIsOpen])
 
-  const onLogOut = () => {
+  const isAdmin = useSelector(isUserAdmin)
+  const isManager = useSelector(isUserManager)
+  const isAdminPanelAvailable = isAdmin || isManager
+
+  const onLogout = () => {
     dispatch(logout())
   }
 
@@ -30,13 +38,13 @@ export const NavBar = ({ className = 'navbar' }: NavBarPropsInterface) => {
     return (
       <div className={classNames(cls.navbar, {}, [className])}>
         <div className={cls.links}>
-          <Button theme={ThemeButton.CLEAR} className={cls.mainLink} onClick={onLogOut}>
-            Выйти
-          </Button>
-          <AppLink to={'/'} className={cls.mainLink}>
-            Главная
+          <AppLink to={RoutePath['article-create']} className={cls.createArticle}>
+            Создать статью
           </AppLink>
-          <AppLink to={'/about'}>About</AppLink>
+          <HStack gap={'12'} classname={cls.actions}>
+            <NotificationButton />
+            <AvatarDropDown authData={authData} isAdminPanelAvailable={isAdminPanelAvailable} onLogout={onLogout} />
+          </HStack>
         </div>
       </div>
     )

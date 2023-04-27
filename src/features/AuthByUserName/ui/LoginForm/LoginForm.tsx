@@ -7,18 +7,18 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import cls from './LoginForm.module.sass'
 import { useTranslation } from 'react-i18next'
-import { classNames } from 'shared/lib/classNames'
-import { Button, Input } from 'shared/ui'
+import { classNames } from '@/shared/lib/classNames'
+import { Button } from '@/shared/ui/Button'
+import { Input } from '@/shared/ui/Input'
 import { useSelector, useStore } from 'react-redux'
 import { memo, useCallback, useEffect } from 'react'
 import { setUserName, setPassword, reducer as loginReducer } from '../../model/slice/loginSlice'
 import { getLoginState } from '../../model/selectors/selectLoginState/getLoginState/getLoginState'
 import { loginByUsername } from '../../model/services/loginByUserName/loginByUserName'
-// import { useAppDispatch } from 'app/providers/StoreProvider/config/store'
-import { Text, ThemeText } from 'shared/ui/Text'
-import { type ReduxStoreWithManager } from 'app/providers/StoreProvider'
-import { DynamicModuleLoader, type ReducersList } from 'shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
-import { useAppDispatch } from 'shared/lib/hooks/useAppDispatch/useAppDispatch'
+import { Text, ThemeText } from '@/shared/ui/Text'
+import { type ReduxStoreWithManager } from '@/app/providers/StoreProvider'
+import { DynamicModuleLoader, type ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
+import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
 
 interface LoginFormProps {
   className?: string
