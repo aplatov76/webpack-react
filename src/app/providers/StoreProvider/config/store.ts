@@ -5,20 +5,17 @@ import { userReducer } from '@/entities/User'
 import { reducer as uiReducer } from '@/features/UI/'
 import { createReducerManager } from './reducerManager'
 import { $api } from '@/shared/api/api'
-import { NavigateOptions, To, useNavigate } from 'react-router-dom'
 import { Reducer } from 'react'
 import { rtkApi } from '@/shared/api/rtkApi'
 
-export function createReduxStore(initialState?: StateSchema, navigate?: (to: To, options?: NavigateOptions) => void) {
+export function createReduxStore(initialState?: StateSchema, asyncReducers?: ReducersMapObject<StateSchema>) {
   const rootReducers: ReducersMapObject<StateSchema> = {
+    ...asyncReducers,
     counter: counterReducer,
-    //loginForm: loginReducer,
     user: userReducer,
     ui: uiReducer,
     [rtkApi.reducerPath]: rtkApi.reducer
   }
-
-  //const navigate = useNavigate()
 
   const reducerManager = createReducerManager(rootReducers)
 

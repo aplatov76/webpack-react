@@ -5,16 +5,11 @@ import { classNames } from '@/shared/lib/classNames'
 import { Button, LangSwitcher, ThemeSwitcher } from '@/shared/ui'
 import { VStack } from '@/shared/ui/Stack'
 import { getSidebarItems } from './model/selectors/getSidebarItems'
-// import { SideBarItemsList } from './model/items'
 import cls from './SideBar.module.sass'
 import { SideBarItem } from './SideBarItem/SideBarItem'
 import { ButtonSize, ThemeButton } from '@/shared/ui/Button'
 
-interface SideBarProps {
-  className?: string
-}
-
-export const SideBar = memo((props: SideBarProps) => {
+export const SideBar = memo(() => {
   const [collapsed, setCollapsed] = useState(false)
   const SideBarItemsList = useSelector(getSidebarItems)
   const onToggle = (): void => {

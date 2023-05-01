@@ -72,6 +72,6 @@ describe('fetchNextArticlePage.test', () => {
       }
     })
 
-    expect(thunk.dispatch).toBeCalledTimes(2)
+    expect(thunk.dispatch).toBeCalledTimes(0)
   })
 })

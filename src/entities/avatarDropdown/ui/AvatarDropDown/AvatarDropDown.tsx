@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import { Dropdown } from '@/shared/ui/Popups'
-import { RoutePath } from '@/app/providers/router/config/routeConfig'
 import cls from './AvatarDropDown.module.sass'
 import { Avatar } from '@/shared/ui/Avatar'
+import { getRouteAdminPanel, getRouteProfile } from '@/app/providers/router/config/routeConfig'
 
 interface AvatarDropDownProps {
   isAdminPanelAvailable: boolean
@@ -21,13 +21,13 @@ export const AvatarDropDown = (props: AvatarDropDownProps) => {
           ? [
               {
                 content: 'Админка',
-                href: RoutePath['admin-panel']
+                href: getRouteAdminPanel()
               }
             ]
           : []),
         {
           content: 'Профиль',
-          href: RoutePath.profile + authData.id
+          href: getRouteProfile(authData.id)
         },
         {
           content: 'Выйти',

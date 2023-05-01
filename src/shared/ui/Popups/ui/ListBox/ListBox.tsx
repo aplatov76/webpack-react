@@ -35,7 +35,7 @@ export function MyListbox(props: ListBoxProps) {
       {label && <span className={cls.label}>{label}</span>}
       <HListBox as="div" className={classNames(pls.popup, {}, [classname])} value={value} onChange={onChange}>
         <HListBox.Button>
-          <Button>{value ?? defaultValue}</Button>
+          <div>{value ?? defaultValue}</div>
         </HListBox.Button>
         <HListBox.Options className={classNames(cls.options, {}, optionsMods)} style={{ width: '100%' }}>
           {items.map((item) => (

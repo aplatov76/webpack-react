@@ -1,1 +1,1 @@
-export { editableProfileCardReducer } from './model/slices/editableProfileCardSlice'
+import { reducer } from '@/entities/Profile/model/slice/profileSlice'

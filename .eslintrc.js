@@ -10,7 +10,8 @@ module.exports = {
       files: ['**/src/**/*.{test,stories}.{ts, tsx}'],
       rules: {
         'i18next/no-literal-string': 'off',
-        'max-len': 'off'
+        'max-len': 'off',
+        'unused-imports/no-unused-imports': 'error'
       }
     }
   ],
@@ -20,7 +21,7 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     project: 'tsconfig.json'
   },
-  plugins: ['react', 'react-hooks', 'webpack-project-plugin'],
+  plugins: ['react', 'react-hooks', 'webpack-project-plugin', 'unused-imports'],
   ignorePatterns: ['**/config/*', '**/webpack.config.ts'],
   rules: {
     'max-len': [
@@ -54,6 +55,7 @@ module.exports = {
     'react/prop-types': 'off',
     'react/display-name': 'off',
     'react/no-unused-vars': 'off',
+    '@typescript-eslint/await-thenable': 'off',
     '@typescript-eslint/promise-function-async': 'off',
     '@typescript-eslint/consistent-type-definitions': 'off',
     'webpack-project-plugin/layer-imports': ['error', { alias: '@', ignoreImportPatterns: ['**/StoreDecorator.tsx'] }]

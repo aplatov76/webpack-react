@@ -1,7 +1,13 @@
 /* eslint-disable @typescript-eslint/quotes */
 import { createSelector } from '@reduxjs/toolkit'
 import { getUserAuthData } from '@/entities/User/model/selectors/getUserAuthData/getUserAuthData'
-import { RoutePath } from '@/app/providers/router/config/routeConfig'
+import {
+  getRouteAbout,
+  getRouteArticles,
+  getRouteMain,
+  getRouteProfile,
+  routeConfig
+} from '@/app/providers/router/config/routeConfig'
 
 import AboutIcon from '@/shared/assets/icons/about-20-20.svg'
 import MainIcon from '@/shared/assets/icons/main-20-20.svg'
@@ -12,17 +18,17 @@ import { type SideBarItemType } from '../types/sidebar'
 export const getSidebarItems = createSelector(getUserAuthData, (userData) => {
   const SideBarItemsList: SideBarItemType[] = [
     {
-      path: RoutePath.main,
+      path: getRouteMain(),
       icon: MainIcon,
       text: 'Главная'
     },
     {
-      path: RoutePath.about,
+      path: getRouteAbout(),
       icon: AboutIcon,
       text: 'О сайте'
     },
     {
-      path: RoutePath.articles,
+      path: getRouteArticles(),
       icon: ArticleIcon,
       text: 'Статьи'
     }
@@ -30,7 +36,7 @@ export const getSidebarItems = createSelector(getUserAuthData, (userData) => {
   console.log(userData)
   if (userData) {
     SideBarItemsList.push({
-      path: RoutePath.profile + userData.id,
+      path: getRouteProfile(userData.id),
       icon: ProfileIcon,
       text: 'Профиль'
     })

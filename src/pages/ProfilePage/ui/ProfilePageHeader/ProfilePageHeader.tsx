@@ -17,6 +17,7 @@ export const ProfilePageHeader = () => {
 
   const authData = useSelector(getUserAuthData)
   const profileData = useSelector(getProfileData)
+  console.log(authData, profileData)
   const canEdit = authData?.id == profileData?.id
   const onEdit = useCallback(() => {
     dispatch(setReadonly(false))
@@ -29,21 +30,30 @@ export const ProfilePageHeader = () => {
   const onSave = useCallback(() => {
     if (authData?.id) dispatch(updateProfileData())
   }, [dispatch])
-
+  console.log(canEdit, readonly)
   return (
     <HStack justify={'between'}>
       <Text title={'Профиль'} />
       {canEdit && (
         <>
-          {' '}
           {readonly ? (
-            <Button onClick={onEdit}>Редактировать</Button>
+            <Button data-testid="EditableProfileCardHeader.EditButton" onClick={onEdit}>
+              Редактировать
+            </Button>
           ) : (
             <HStack gap={'8'}>
-              <Button theme={ThemeButton.OUTLINE} onClick={onCancelEdit}>
+              <Button
+                data-testid="EditableProfileCardHeader.CancelButton"
+                theme={ThemeButton.OUTLINE}
+                onClick={onCancelEdit}
+              >
                 Отменить
               </Button>
-              <Button theme={ThemeButton.OUTLINE_RED} onClick={onSave}>
+              <Button
+                data-testid="EditableProfileCardHeader.SaveButton"
+                theme={ThemeButton.OUTLINE_RED}
+                onClick={onSave}
+              >
                 Сохранить
               </Button>
             </HStack>

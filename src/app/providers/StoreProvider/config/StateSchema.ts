@@ -7,7 +7,6 @@ import { type CounterSchema } from '@/features/Counter/index'
 import { Dispatch } from 'redux'
 import { NavigateOptions, To } from 'react-router-dom'
 import { ArticleDetailsSchema } from '@/entities/Article'
-import { ArticleDetailsCommentSchema, ArticleDetailsPageRecommendationsSchema } from '@/pages/ArticleDetailsPage'
 import { AddCommentFormSchema } from '@/features/AddCommentForm'
 import { ArticlePageSchema } from '@/pages/ArticlePage'
 import { UISchema } from '@/features/UI'
@@ -30,10 +29,10 @@ export interface StateSchema {
   articlesPage?: ArticlePageSchema
   articleDetailsPage?: ArticleDetailsPageSchema
 }
-
 export type StateSchemaKey = keyof StateSchema
+export type MountedReducers = Partial<Record<StateSchemaKey, boolean>>
 
-export interface ReduxeManager {
+export interface ReduceManager {
   getReducerMap: () => ReducersMapObject<StateSchema>
   reduce: (state: StateSchema, action: AnyAction) => CombinedState<StateSchema>
   add: (key: StateSchemaKey, reducer: Reducer) => void
@@ -42,7 +41,7 @@ export interface ReduxeManager {
 }
 
 export interface ReduxStoreWithManager extends EnhancedStore<StateSchema> {
-  reducerManager: ReduxeManager
+  reducerManager: ReduceManager
 }
 
 export interface ThunkExtraArg {

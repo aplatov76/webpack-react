@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable react-hooks/rules-of-hooks */
-import { type ArticleView, ArticleViewSelector, type ArticleSortField } from '@/entities/Article'
+import { type ArticleView, type ArticleSortField } from '@/entities/Article'
 import { actions } from '../../models/slices/articlePage.slice'
 import {
   getArticlePageOrder,
@@ -14,18 +14,19 @@ import cls from './ArticlePageFilter.module.sass'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
 import { Card } from '@/shared/ui/Card'
 import { Input } from '@/shared/ui/Input'
-import { ArticleSortSelector } from '@/entities/Article/ui/ArticleSortSelector/ArticleSortSelector'
+import { ArticleSortSelector } from '@/features/ArticleSortSelector'
 import { type SortOrder } from '@/shared/types'
 import { useCallback } from 'react'
 import { fetchArticlesList } from '../../models/services/fetchArticlePage/fetchArticleList'
 import { useDebounce } from '@/shared/lib/hooks/useDebounce/useDebounce'
-import { ArticleTypeTabs } from '@/entities/Article/ui/ArticleTypeTabs/ArticleTypeTabs'
+import { ArticleTypeTabs } from '@/features/ArticleTypeTabs'
+import { ArticleViewSelector } from '@/features/ArticleViewSelector'
 
 type ArticlePageFilterProps = {
   classname?: string
 }
 
-export const ArticlePageFilter = (props: ArticlePageFilterProps) => {
+export const ArticlePageFilter = () => {
   const dispatch = useAppDispatch()
 
   const fetchData = useCallback(() => {

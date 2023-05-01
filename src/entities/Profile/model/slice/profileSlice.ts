@@ -4,7 +4,6 @@ import { updateProfileData } from '../services/updateProfileData/updateProfileDa
 import { type ProfileType, type ProfileSchema } from '../types/profile'
 
 const initialState: ProfileSchema = {
-  data: undefined,
   isLoading: false,
   readonly: true
 }
@@ -36,10 +35,12 @@ export const profileSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchProfileData.pending, (state, action) => {
+        console.log('action data load: ')
         state.isLoading = true
         state.error = undefined
       })
       .addCase(fetchProfileData.fulfilled, (state, action) => {
+        console.log('action data: ', action.payload)
         state.isLoading = false
         state.data = action.payload
         state.form = action.payload

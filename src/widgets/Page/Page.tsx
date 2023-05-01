@@ -11,8 +11,9 @@ import { useSelector } from 'react-redux'
 import { getUiScrollByPath } from '@/features/UI/model/selectors/ui.selectors'
 import { type StateSchema } from '@/app/providers/StoreProvider/config/StateSchema'
 import { useThrottling } from '@/shared/lib/hooks/useThrottling/useThrottling'
+import { type TestProps } from '@/shared/types/tests'
 
-type PageProps = {
+interface PageProps extends TestProps {
   classname?: string
   children: ReactNode
   onScrollEnd?: () => void
@@ -43,7 +44,12 @@ export const Page = (props: PageProps) => {
   }, 300)
 
   return (
-    <section ref={wrapperRef} className={classNames(cls.Page, {}, [classname])} onScroll={onScroll}>
+    <section
+      data-testid={props['data-testid'] ?? 'Page'}
+      ref={wrapperRef}
+      className={classNames(cls.Page, {}, [classname])}
+      onScroll={onScroll}
+    >
       {children}
 
       <div className={cls.trigger} ref={triggerRef} />

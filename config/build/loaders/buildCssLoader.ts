@@ -5,6 +5,7 @@ import { BuildOptions } from '../types/config'
 export function buildCssLoader(isDev: boolean) {
   return {
     test: /\.sass$/i,
+    exclude: '/node_modules',
     use: [
       // Creates `style` nodes from JS strings
       isDev ? 'style-loader' : MiniCssExtractPlugin.loader,

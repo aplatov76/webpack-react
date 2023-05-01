@@ -15,10 +15,6 @@ export function buildPlugins(
     new HtmlWebpackPlugin({
       template: html
     }),
-    new MiniCssExtractPlugin({
-      filename: 'css/[name].[contenthash:8].css',
-      chunkFilename: 'css/[name].[contenthash:8].css'
-    }),
     new webpack.DefinePlugin({
       _IS_DEV_: JSON.stringify(isDev),
       _API_: JSON.stringify(apiUrl),
@@ -39,6 +35,14 @@ export function buildPlugins(
     plugins.push(new ReactRefreshWebpackPlugin())
     plugins.push(new webpack.HotModuleReplacementPlugin())
     //plugins.push(new webpack.HotModuleReplacementPlugin())
+  }
+  if (!isDev) {
+    plugins.push(
+      new MiniCssExtractPlugin({
+        filename: 'css/[name].[contenthash:8].css',
+        chunkFilename: 'css/[name].[contenthash:8].css'
+      })
+    )
   }
 
   return plugins

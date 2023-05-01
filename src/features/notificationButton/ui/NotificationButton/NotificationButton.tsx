@@ -13,11 +13,7 @@ export const NotificationButton = () => {
   const onOpenDrawer = useCallback(() => setIsOpen(true), [])
   const onCloseDrawer = useCallback(() => setIsOpen(false), [])
 
-  const trigger = (
-    <Button onClick={onOpenDrawer} theme={ThemeButton.CLEAR}>
-      <Icon Svg={Notifications}></Icon>
-    </Button>
-  )
+  const trigger = <Icon onClick={onOpenDrawer} Svg={Notifications}></Icon>
   return (
     <div>
       <BrowserView>

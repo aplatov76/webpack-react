@@ -1,5 +1,6 @@
 import { type StateSchema } from '@/app/providers/StoreProvider/config/StateSchema'
 
+export const getState = (state: StateSchema) => state
 export const getProfileData = (state: StateSchema) => state.profile?.data
 export const getProfileIsLoading = (state: StateSchema) => state.profile?.isLoading
 export const getProfileError = (state: StateSchema) => state.profile?.error

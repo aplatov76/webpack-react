@@ -2,17 +2,16 @@ import { type ArticleTextBlock, ArticleView, type Article } from '../../model/ty
 import cls from './ArticleListItem.module.sass'
 import { classNames } from '@/shared/lib/classNames'
 import { Text } from '@/shared/ui/Text'
-import { AppLink, Button, Icon } from '@/shared/ui'
+import { AppLink, Button, Icon, Skeleton } from '@/shared/ui'
 import EyeIcon from '@/shared/assets/icons/eye-20-20.svg'
 import { Card } from '@/shared/ui/Card'
 import { useHover } from '@/shared/lib/hooks/useHover/useHover'
 import { Avatar } from '@/shared/ui/Avatar'
 import { ThemeButton } from '@/shared/ui/Button'
 import { ArticleTextBlockComponent } from '../ArticleTextBlockComponent/ArticleTextBlockComponent'
-
 import { useNavigate } from 'react-router-dom'
-import { RoutePath } from '@/app/providers/router/config/routeConfig'
-import { AppRoutes } from '@/shared/types/router'
+import { getRouteArticleDetails } from '@/app/providers/router/config/routeConfig'
+import { AppImage } from '@/shared/ui/AppImage/AppImage'
 
 interface ArticleListProps {
   classname?: string
@@ -39,14 +38,19 @@ export const ArticleListItem = (props: ArticleListProps) => {
           </div>
           <Text title={article.title} classname={cls.title}></Text>
           <p className={cls.type}>{types}</p>
-          <img src={article.img} alt={article.title} className={cls.img} />
+          <AppImage
+            src={article.img}
+            alt={article.title}
+            classname={cls.img}
+            fallBack={<Skeleton width={'100%'} height={'250px'} />}
+          />
           {textBlock && (
             <div className={cls.textBlock}>
               <ArticleTextBlockComponent block={textBlock} classname={cls.textBlock}></ArticleTextBlockComponent>
             </div>
           )}
           <div className={cls.footer}>
-            <AppLink to={RoutePath[AppRoutes.ARTICLE_DETAILS] + article.id}>
+            <AppLink to={getRouteArticleDetails(article.id)}>
               <Button theme={ThemeButton.OUTLINE}>Читать далее</Button>
             </AppLink>
             <div>
@@ -60,11 +64,16 @@ export const ArticleListItem = (props: ArticleListProps) => {
   }
 
   return (
-    <AppLink target={'_blank'} to={RoutePath[AppRoutes.ARTICLE_DETAILS] + article.id}>
+    <AppLink target={'_blank'} to={getRouteArticleDetails(article.id)}>
       <Card classname={view}>
         <div {...bindHover} className={classNames(cls.ArticleListItem, {}, [classname, cls[view]])}>
           <div className={cls.imageWrapper}>
-            <img src={article.img} alt={article.title} className={cls.img} />
+            <AppImage
+              src={article.img}
+              alt={article.title}
+              classname={cls.img}
+              fallBack={<Skeleton width={200} height={200} />}
+            />
             <Text text={article.createdAt.toString()} classname={cls.date} />
           </div>
           <div className={cls.infoWrapper}>

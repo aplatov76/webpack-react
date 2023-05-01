@@ -7,5 +7,9 @@ interface NotFoundPageProps {
 
 export const NotFoundPage = (props: NotFoundPageProps) => {
   const { t } = useTranslation()
-  return <div className={cls.NotFoundPage}>{t('NotFoundPage')}</div>
+  return (
+    <div data-testid={'NotFoundPage'} className={cls.NotFoundPage}>
+      {t('NotFoundPage')}
+    </div>
+  )
 }

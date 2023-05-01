@@ -4,7 +4,7 @@ import cls from './CommentItem.module.sass'
 import { classNames } from '@/shared/lib/classNames'
 import { Avatar } from '@/shared/ui/Avatar'
 import { AppLink, Skeleton } from '@/shared/ui'
-import { RoutePath } from '@/app/providers/router/config/routeConfig'
+import { getRouteProfile } from '@/app/providers/router/config/routeConfig'
 
 interface CommentItemProps {
   classname?: string
@@ -31,7 +31,7 @@ export const CommentItem = memo(({ classname, comment, isLoading }: CommentItemP
 
   return (
     <div className={classNames(cls.CommentItem, {}, [classname])}>
-      <AppLink to={`${RoutePath.profile}${comment.user.id}`}>
+      <AppLink to={getRouteProfile(comment.user.id)}>
         <div className={cls.header}>
           {comment.user.avatar && <Avatar size={30} src={comment.user.avatar} />}
           {comment.user.username}

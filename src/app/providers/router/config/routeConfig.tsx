@@ -16,62 +16,57 @@ export type AppRoutesProps = RouteProps & {
   roles?: UserRole[]
 }
 
-export const RoutePath: Record<AppRoutes, string> = {
-  [AppRoutes.MAIN]: '/',
-  [AppRoutes.ABOUT]: '/about',
-  [AppRoutes.PROFILE]: '/profile/',
-  [AppRoutes.ARTICLES]: '/articles',
-  [AppRoutes.ARTICLE_DETAILS]: '/articles/', // + id
-  [AppRoutes.ARTICLE_CREATE]: '/articles/new',
-  [AppRoutes.ARTICLE_EDIT]: '/articles/:id/edit',
-  [AppRoutes.ADMIN_PANEL]: '/admin-panel',
-  [AppRoutes.FORBIDDEN]: '/forbidden',
-  // последний
-  [AppRoutes.NOT_FOUND]: '*'
-}
+export const getRouteMain = () => '/'
+export const getRouteAbout = () => '/about'
+export const getRouteProfile = (id: string) => '/profile/' + id
+export const getRouteArticles = () => `/articles`
+export const getRouteArticleDetails = (id: string) => `/article/${id}`
+export const getRouteArticleCreate = () => `/article/new`
+export const getRouteArticleEdit = (id: string) => `/article/${id}/edit`
+export const getRouteAdminPanel = () => `/admin-panel`
 
 export const routeConfig: Record<AppRoutes, AppRoutesProps> = {
   [AppRoutes.MAIN]: {
-    path: RoutePath[AppRoutes.MAIN],
+    path: getRouteMain(),
     element: <MainPage />
   },
   [AppRoutes.ABOUT]: {
-    path: RoutePath[AppRoutes.ABOUT],
+    path: getRouteAbout(),
     element: <AboutPage />
   },
   [AppRoutes.PROFILE]: {
-    path: `${RoutePath[AppRoutes.PROFILE]}:id`,
+    path: getRouteProfile(':id'),
     element: <ProfilePageAsync />,
     authOnly: true
   },
   [AppRoutes.ARTICLES]: {
-    path: RoutePath[AppRoutes.ARTICLES],
+    path: getRouteArticles(),
     element: <ArticlePage />
   },
   [AppRoutes.ARTICLE_DETAILS]: {
-    path: `${RoutePath['article-page']}:id`,
+    path: getRouteArticleDetails(':id'),
     element: <ArticleDetailsPage />
   },
   [AppRoutes.ARTICLE_EDIT]: {
-    path: `${RoutePath['article-edit']}`,
+    path: getRouteArticleEdit(':id'),
     element: <ArticleEditPage />
   },
   [AppRoutes.ARTICLE_CREATE]: {
-    path: RoutePath[AppRoutes.ARTICLE_CREATE],
+    path: getRouteArticleCreate(),
     element: <ArticleEditPage />
   },
   [AppRoutes.ADMIN_PANEL]: {
-    path: RoutePath[AppRoutes.ADMIN_PANEL],
+    path: getRouteAdminPanel(),
     element: <AdminPanelPage />,
     authOnly: true,
     roles: [UserRole.MANAGER, UserRole.ADMIN]
   },
   [AppRoutes.FORBIDDEN]: {
-    path: RoutePath[AppRoutes.FORBIDDEN],
+    path: '/forbidden',
     element: <ForbiddenPage />
   },
   [AppRoutes.NOT_FOUND]: {
-    path: RoutePath[AppRoutes.NOT_FOUND],
+    path: '*',
     element: <NotFoundPage />
   }
 }

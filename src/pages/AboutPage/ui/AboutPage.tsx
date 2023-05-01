@@ -6,7 +6,7 @@ import { Rating } from '@/entities/Rating'
 const AboutPage = () => {
   const { t } = useTranslation('about')
   return (
-    <Page>
+    <Page data-testid={'AboutPage'}>
       {t('О сайте')}
       <StartRating />
       <Rating title={'Ваш фитбэк'} feedbackTitle={'Оставьте отзыв о статье'} hasFeedback />

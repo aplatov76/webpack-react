@@ -8,11 +8,11 @@ import { useSelector } from 'react-redux'
 import { getUserAuthData } from '@/entities/User/model/selectors/getUserAuthData/getUserAuthData'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
 import { isUserAdmin, isUserManager, logout } from '@/entities/User'
-import { RoutePath } from '@/app/providers/router/config/routeConfig'
 import { HStack } from '@/shared/ui/Stack'
 
 import { NotificationButton } from '@/features/notificationButton'
 import { AvatarDropDown } from '@/entities/avatarDropdown/'
+import { getRouteArticleCreate } from '@/app/providers/router/config/routeConfig'
 
 interface NavBarPropsInterface {
   className?: string
@@ -38,7 +38,7 @@ export const NavBar = ({ className = 'navbar' }: NavBarPropsInterface) => {
     return (
       <div className={classNames(cls.navbar, {}, [className])}>
         <div className={cls.links}>
-          <AppLink to={RoutePath['article-create']} className={cls.createArticle}>
+          <AppLink to={getRouteArticleCreate()} className={cls.createArticle}>
             Создать статью
           </AppLink>
           <HStack gap={'12'} classname={cls.actions}>

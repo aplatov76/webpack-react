@@ -1,18 +1,12 @@
-import { useDispatch, useSelector } from 'react-redux'
-import { getCounterValue } from '../model/selectors/getCounterValue/getConterValue'
-import { increment, decrement } from '../model/slice/counterSlice'
-import { Button } from '@/shared/ui/Button'
+import { useCounterValue } from '../model/selectors/getCounterValue/getConterValue'
+import { useCounterActions } from '../model/slice/counterSlice'
 
 export const Counter = () => {
-  const dispatch = useDispatch()
-  const counterValue = useSelector(getCounterValue)
-  const inc = () => {
-    dispatch(increment())
-  }
+  const counterValue = useCounterValue()
 
-  const dec = () => {
-    dispatch(decrement())
-  }
+  const { increment, decrement } = useCounterActions()
+  const inc = () => increment()
+  const dec = () => decrement()
 
   return (
     <div>
@@ -26,7 +20,6 @@ export const Counter = () => {
           dec
         </button>
       </div>
-      <Button>hello memo</Button>
     </div>
   )
 }

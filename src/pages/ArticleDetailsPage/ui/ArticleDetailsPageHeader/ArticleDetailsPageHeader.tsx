@@ -1,13 +1,12 @@
 import { useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button, ThemeButton } from '@/shared/ui/Button'
-import { RoutePath } from '@/app/providers/router/config/routeConfig'
-import { AppRoutes } from '@/shared/types/router'
 import cls from './ArticleDetailsPageHeader.module.sass'
 import { classNames } from '@/shared/lib/classNames'
 import { useSelector } from 'react-redux'
 import { getCanEditArticle } from '../../model/selectors/article'
 import { getArticleDetailData } from '@/entities/Article'
+import { getRouteArticleEdit, getRouteArticles } from '@/app/providers/router/config/routeConfig'
 
 export const ArticleDetailsPageHeader = () => {
   const navigate = useNavigate()
@@ -15,11 +14,11 @@ export const ArticleDetailsPageHeader = () => {
   const article = useSelector(getArticleDetailData)
 
   const onBackToList = useCallback(() => {
-    navigate(RoutePath[AppRoutes.ARTICLES])
+    navigate(getRouteArticles())
   }, [])
 
   const onEditArticle = useCallback(() => {
-    if (article) navigate(RoutePath[AppRoutes.ARTICLES] + '/' + article.id + '/edit')
+    if (article) navigate(getRouteArticleEdit(article.id))
   }, [article, navigate])
 
   return (

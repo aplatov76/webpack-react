@@ -51,7 +51,7 @@ export const ProfileCard = ({
       </div>
     )
   }
-
+  console.log('data: ', data)
   return (
     <VStack gap={'4'} classname={classNames(cls.ProfileCard, {}, [classname])}>
       <Input value={data?.first} onChange={onChangeFirstname} readonly={readonly} />

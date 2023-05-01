@@ -13,7 +13,6 @@ const AnimationContext = createContext<AnimationContextPayload>({})
 
 // Обе либы зависят друг от друга
 const getAsyncAnimationModules = async () => {
-  console.log('strart getAsyncAnimationModules')
   return await Promise.all([import('@react-spring/web'), import('@use-gesture/react')])
 }
 

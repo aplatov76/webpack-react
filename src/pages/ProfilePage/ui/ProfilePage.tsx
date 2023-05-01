@@ -32,10 +32,6 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
 
   const { id } = useParams<{ id: string }>()
 
-  useInitialEffects(() => {
-    if (id) dispatch(fetchProfileData(String(id)))
-  })
-
   const onChangeFirstname = useCallback(
     (value?: string) => {
       dispatch(updateProfile({ first: value ?? '' }))
@@ -71,7 +67,7 @@ const ProfilePage = ({ className }: ProfilePageProps) => {
 
   return (
     <DynamicModuleLoader reducers={reducers}>
-      <Page>
+      <Page data-testid={'ProfilePage'}>
         <VStack gap={'10'}>
           <EditableProfileCard />
         </VStack>

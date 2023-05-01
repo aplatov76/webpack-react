@@ -15,15 +15,16 @@ export function buildBabelLoader({ isDev, isTsx }: BuildBabelLoaderProps) {
         presets: ['@babel/preset-env'],
         plugins: [
           ['@babel/plugin-transform-typescript', { isTsx }],
-          '@babel/plugin-transform-runtime',
-          [
-            babelRemovePropsPlugin,
-            {
-              props: ['data-testid']
-            }
-          ],
+          ['@babel/plugin-transform-runtime'],
+          isTsx &&
+            !isDev && [
+              babelRemovePropsPlugin,
+              {
+                props: ['data-testid']
+              }
+            ],
           isDev && require.resolve('react-refresh/babel')
-        ]
+        ].filter(Boolean)
       }
     }
   }
