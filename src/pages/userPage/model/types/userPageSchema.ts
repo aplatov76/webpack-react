@@ -1,3 +1,1 @@
-export interface UserPageSchema {
-
-}
+export interface UserPageSchema {}

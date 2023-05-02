@@ -16,7 +16,7 @@ interface TabsPropsInterface {
 }
 
 export const Tabs = (props: TabsPropsInterface) => {
-  const { classname, tabs, value, onTabClick } = props
+  const { tabs, value, onTabClick } = props
 
   const clickHandler = useCallback(
     (tab: TabItem) => {

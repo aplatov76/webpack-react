@@ -14,7 +14,7 @@ interface StarRatingProps {
 const stars = [1, 2, 3, 4, 5]
 
 export const StartRating = (props: StarRatingProps) => {
-  const { classname, size = 30, selectedStars = 0, onSelect } = props
+  const { selectedStars = 0, onSelect } = props
 
   const [isHovered, setIsHovered] = useState(0)
   const [isSelected, setIsSelected] = useState(selectedStars)

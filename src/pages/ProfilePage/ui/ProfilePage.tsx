@@ -1,18 +1,8 @@
 import { reducer } from '@/entities/Profile/model/slice/profileSlice'
 import { useCallback } from 'react'
-import { useSelector } from 'react-redux'
-import {
-  getProfileForm,
-  getProfileError,
-  getProfileIsLoading,
-  updateProfile,
-  fetchProfileData,
-  getProfileReadonly,
-  getProfileValidateErrors
-} from '@/entities/Profile'
+import { updateProfile } from '@/entities/Profile'
 import { DynamicModuleLoader, type ReducersList } from '@/shared/lib/components/DynamicModuleLoader/DynamicModuleLoader'
 import { useAppDispatch } from '@/shared/lib/hooks/useAppDispatch/useAppDispatch'
-import { useInitialEffects } from '@/shared/lib/hooks/useInitialEffects/useInitialEffects'
 import { useParams } from 'react-router-dom'
 import { Page } from '@/widgets/Page/Page'
 import { VStack } from '@/shared/ui/Stack'
